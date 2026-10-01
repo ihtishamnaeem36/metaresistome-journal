@@ -1,0 +1,13 @@
+# Archives & backups
+*.zip
+*.tar
+*.gz
+*.lnk
+index.manus-backup.html
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

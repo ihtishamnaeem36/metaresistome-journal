@@ -1,0 +1,290 @@
+Act as a senior full-stack developer and information architect. Build an independent, 
+clean scientific journal platform from scratch. It is NOT affiliated with Elsevier, 
+ScienceDirect, Cell Press, or any publisher. It should look and behave like a real, 
+original academic journal — not a clone, not a template, not a startup landing page.
+
+This is an early-stage independent journal. There is no Impact Factor yet, no CiteScore, 
+no indexing badges. The platform must be designed so these can be added later WITHOUT 
+redesigning the layout or stacking new UI on top of the old one.
+
+═══════════════════════════════════════════
+PRIMARY PRINCIPLES (Read these first)
+═══════════════════════════════════════════
+
+1. CLEAN AND ACCURATE
+   The journal must feel like a genuine academic publication — typography, spacing, 
+   hierarchy, tone. No marketing fluff, no gradients, no "AI startup" aesthetic. 
+   Think: a university press journal that a researcher would trust.
+
+2. EVERY BUTTON WORKS
+   No dead links. No "coming soon" placeholders visible to users. If a feature isn't 
+   ready, the button either doesn't exist yet OR exists in a hidden/feature-flagged 
+   state. Nothing clickable should 404 or do nothing.
+
+3. OPEN IN NEW TAB — LIKE REAL JOURNALS
+   Users expect to right-click → "Open in new tab" on navigation links (Guide for 
+   Authors, Editorial Board, Submit, Article titles, etc.). All primary navigation 
+   and content links must be real <a href="..."> anchors, never JS-only click handlers.
+   Middle-click and Ctrl/Cmd+click must work. Browser back/forward must work.
+
+4. DUAL-PATTERN NAVIGATION (Modal + Full Page)
+   For long-form content like "Guide for Authors," "Aims & Scope," "Editorial Board":
+   - A quick preview opens in a modal/drawer (mouse wheel scroll works inside)
+   - A "View full guide" / "Open full page" link inside the modal opens the full page
+   - The full page is also reachable directly via its own URL
+   - Both paths render the same content — never duplicate source of truth
+
+5. BUILT FOR GROWTH WITHOUT REDESIGN
+   Every metric, badge, or section that doesn't exist yet must have a reserved, 
+   invisible slot in the layout. When the data arrives, you update a value in the 
+   database or config — you do NOT touch the layout, CSS, or component structure.
+
+═══════════════════════════════════════════
+TECH STACK
+═══════════════════════════════════════════
+
+- Next.js 15 (App Router) + TypeScript
+- Tailwind CSS + shadcn/ui
+- Prisma + PostgreSQL
+- Auth.js / NextAuth (email magic link + ORCID later)
+- Zod for validation
+- Tiptap for rich-text (manuscript editor, later phase)
+- Meilisearch or Postgres FTS for search (MVP: Postgres FTS)
+- S3-compatible storage (Cloudflare R2 / MinIO) for PDFs, figures, supplementary files
+- date-fns
+- Radix UI primitives (for accessible dialogs, popovers, tabs — shadcn is built on this)
+
+═══════════════════════════════════════════
+FEATURE-FLAGGED / HIDDEN-BY-DEFAULT SYSTEM
+═══════════════════════════════════════════
+
+This is the most important architectural requirement.
+
+Create a single source of truth for optional journal attributes. Example: 
+a `journal_settings` table OR a typed config object with these fields:
+
+  {
+    impactFactor:       number | null,      // hidden until set
+    citeScore:          number | null,      // hidden until set
+    acceptanceRate:     number | null,
+    indexingBadges:     string[],           // e.g. ["Scopus", "DOAJ", "PubMed"]
+    issn:               string | null,
+    eissn:              string | null,
+    apc:                number | null,
+    publicationFrequency: string | null,    // e.g. "Monthly", "Quarterly"
+    coverImageUrl:      string | null,
+    editorInChief:      string | null,
+    establishedYear:    number | null,
+  }
+
+Rules:
+- A metric/badge/button renders ONLY if its value is non-null AND non-empty.
+- When null, the slot is NOT rendered at all — no empty box, no "N/A", no placeholder text.
+- The surrounding layout must NOT shift or break when a field becomes visible. 
+  Design the header and metrics bar so adding "Impact Factor: 4.2" later is 
+  a one-line data change, not a component change.
+- Document in the README: "To enable Impact Factor display, set 
+  journal_settings.impactFactor = X. No code change required."
+
+This applies to:
+- Impact Factor badge
+- CiteScore badge
+- Indexing logos (Scopus, DOAJ, PubMed, etc.)
+- ISSN / eISSN display
+- APC / Open Access badge
+- "Submit your article" CTA (hidden until submission system is live)
+- "Current Issue" section (hidden until first issue is published)
+- "Articles in Press" (hidden until first accepted article exists)
+
+═══════════════════════════════════════════
+SYSTEM A: PUBLIC JOURNAL WEBSITE
+═══════════════════════════════════════════
+
+A1. JOURNAL HOME PAGE (Top priority — spend the most time here)
+
+Layout (top to bottom):
+- Journal masthead: journal title (serif, prominent), publisher-independent 
+  subtitle, ISSN/eISSN if set (auto-hidden if not)
+- Utility bar: Search, Alerts, Submit (Submit hidden until enabled)
+- Primary nav (real links, each its own page):
+    Home | Articles | Issues | Guide for Authors | Editorial Board | 
+    Aims & Scope | About | Contact
+- Hero / welcome block: brief journal description (editable via admin)
+- Latest Articles (hidden until at least one article is published)
+- Articles in Press (hidden until applicable)
+- Current Issue (hidden until first issue exists)
+- Aims & Scope preview (2–3 lines + "Read full aims & scope" → opens modal, 
+  modal has "Open full page" → /aims-and-scope)
+- Editorial Board preview (names + affiliations, "View full board" → /editorial-board)
+- Journal metrics strip (empty/invisible until metrics are set — see feature flags)
+- Footer: links to Guide for Authors, Editorial Board, Aims & Scope, Contact, 
+  Privacy, Terms, RSS, ISSN (if set)
+
+A2. ARTICLE PAGE
+- Real URL: /articles/{doi-suffix} or /articles/{slug}
+- Semantic HTML: <article>, <h1>, proper heading hierarchy
+- Sections: Title, Authors, Affiliations, Corresponding author, Abstract, 
+  Keywords, Full text (HTML), Figures, Tables, References, 
+  Author Contributions, Declaration of Interests, Acknowledgments
+- Download PDF button (only if PDF exists)
+- Export citation: RIS, BibTeX, EndNote (opens in new tab as a download)
+- Share: email, copy DOI, social (real links)
+- Recommended / related articles (hidden until article count > threshold)
+- Metrics sidebar (citations, views — hidden until data exists)
+- Google Scholar meta tags: citation_title, citation_author, 
+  citation_publication_date, citation_journal_title, citation_doi, 
+  citation_abstract_html_url, citation_pdf_url
+- Schema.org ScholarlyArticle JSON-LD
+
+A3. NAVIGATION BEHAVIOR (Critical)
+- All nav links are <a href="..."> — never onClick-only
+- Ctrl/Cmd+click and middle-click open in new tab
+- Browser back/forward work on every route
+- Long content pages (Guide for Authors, Aims & Scope, Editorial Board, 
+  About) each have:
+    (a) A dedicated full-page route (e.g. /guide-for-authors)
+    (b) A modal/drawer version triggered from home page previews
+    (c) The modal contains a "Open full page" / "View full guide" link
+    (d) Modal content is scrollable with mouse wheel and keyboard
+- Modals use Radix Dialog (accessible, focus-trapped, ESC closes, 
+  back button closes)
+- Where appropriate, tabs (Radix Tabs) for sub-sections within a page — 
+  each tab is deep-linkable via URL hash or query param
+
+A4. SEARCH
+- Prominent search box in header
+- /search?q=...  (real URL, shareable, back button works)
+- Filters: year, article type, open access
+- Results show: title, authors, journal section, abstract snippet, PDF link
+- Empty state is informative, not a dead end
+
+A5. ISSUES
+- /issues → list of volumes
+- /issues/{volume}/{issue} → table of contents
+- Each article links to its full page (new-tab-friendly)
+- "Download PDF" per article, "Export citation" per article
+
+═══════════════════════════════════════════
+SYSTEM B: EDITORIAL / SUBMISSION SYSTEM (Later Phase)
+═══════════════════════════════════════════
+
+Design the data model NOW so the public site is future-proof, but only build 
+the editorial UI after the public site is polished.
+
+Roles: Author, Reviewer, Handling Editor, Editor-in-Chief, Admin.
+
+Author workflow: register → submit manuscript → track status → revisions → acceptance.
+Editor workflow: triage → assign reviewers → decision → publish.
+Reviewer workflow: accept/decline → download anonymized manuscript → structured review.
+
+═══════════════════════════════════════════
+DATA MODEL (Prisma — design for growth)
+═══════════════════════════════════════════
+
+User            (id, email, name, orcid?, roles[], affiliation?, passwordHash?)
+JournalSettings (id, key, value)              // key-value for feature flags & metrics
+JournalInfo     (id, title, slug, description, aimsScope, guideForAuthors, 
+                 about, contactEmail, establishedYear?)
+Volume          (id, number, year)
+Issue           (id, volumeId, number, publicationDate?, coverImageUrl?)
+Article         (id, issueId?, doi?, title, abstract, keywords[], articleType, 
+                 status, submissionDate?, acceptanceDate?, publicationDate?, 
+                 pdfUrl?, htmlContent?, graphicalAbstractUrl?, license?)
+Author          (id, articleId, name, affiliation, email?, isCorresponding, order)
+Section         (id, articleId, title, content, order)
+Figure          (id, articleId, label, caption, imageUrl, order)
+Table           (id, articleId, label, caption, dataUrl, order)
+Reference       (id, articleId, doi?, citationText, order)
+NavItem         (id, label, href, parentId?, order, isVisible)  // dynamic nav
+ModalContent    (id, slug, title, body)       // for modal previews, same source 
+                                              // as full page (or shared source)
+
+Note: JournalSettings is the mechanism for the invisible-until-ready fields.
+NavItem lets you add/remove nav links without code deploys.
+ModalContent and the full-page route should render from the SAME content source.
+
+═══════════════════════════════════════════
+DESIGN GUIDELINES
+═══════════════════════════════════════════
+
+- Serif for journal title, article titles, and body text 
+  (Source Serif 4, Georgia, or similar)
+- Sans-serif for UI chrome (Inter, system-ui)
+- One restrained accent color (deep blue, forest green, or burgundy)
+- Generous whitespace, strong typographic hierarchy
+- No gradients, no drop shadows on cards, no rounded-2xl SaaS look
+- Article pages: max-width ~70ch, line-height 1.6–1.7
+- Header: journal name is the anchor — it feels like a masthead, not a logo
+- Footer: quiet, link-rich, academic
+- Mobile: fully responsive, article reading experience is excellent on phones
+- Dark mode: optional, but if included must be done properly
+- Accessibility: WCAG 2.1 AA — alt text on figures, focus states, keyboard nav, 
+  sufficient contrast, semantic landmarks
+
+═══════════════════════════════════════════
+NON-FUNCTIONAL REQUIREMENTS
+═══════════════════════════════════════════
+
+- Performance: article pages < 2s LCP, use ISR/SSG for published articles
+- SEO: sitemaps, robots.txt, Google Scholar meta tags, Schema.org JSON-LD
+- Security: rate limiting, CSRF protection, input validation, file scanning
+- Backup: daily DB + storage backups
+- Audit log: all editorial actions timestamped and attributed
+- GDPR: right to erasure, cookie consent
+
+═══════════════════════════════════════════
+BUILD ORDER (Follow strictly)
+═══════════════════════════════════════════
+
+Phase 1 — Public site skeleton (spend the most time here):
+  - Layout, masthead, primary nav (all links working, all pages exist even 
+    if thin content)
+  - JournalSettings / feature-flag system
+  - Home page with proper hidden-until-ready sections
+  - Guide for Authors, Aims & Scope, Editorial Board, About, Contact pages
+  - Modal previews with "Open full page" link
+  - SEO meta tags, sitemaps
+
+Phase 2 — Articles & Issues:
+  - Article page template
+  - Issue/Volume browsing
+  - Search
+  - Citation export
+
+Phase 3 — Editorial system:
+  - Auth, roles, submission, review, decision
+  - Editor dashboard
+  - Reviewer dashboard
+
+Phase 4 — Growth features:
+  - ORCID, Crossref DOI, alerts, metrics
+  - Indexing integrations (DOAJ, Scopus, PubMed — all via JournalSettings flags)
+
+═══════════════════════════════════════════
+DELIVERABLES
+═══════════════════════════════════════════
+
+1. Full file tree and code
+2. Prisma schema + migrations
+3. Seed script (journal settings with all optional fields = null, sample content)
+4. .env.example
+5. README with: setup, deployment, and a dedicated section titled 
+   "How to enable Impact Factor / CiteScore / Indexing badges later — without 
+   touching code"
+6. Tests: E2E for navigation (new tab, back button, modal → full page), 
+   unit for feature-flag rendering
+7. Docker Compose for local dev (Postgres, MinIO)
+
+═══════════════════════════════════════════
+RULES
+═══════════════════════════════════════════
+
+- Do NOT render empty slots for missing metrics. Hide the entire element.
+- Do NOT use JS-only navigation. Every nav link must be a real anchor.
+- Do NOT duplicate content between modal and full page. One source, two views.
+- Do NOT invent an Impact Factor, CiteScore, or indexing badge. Leave them null.
+- Do NOT add any publisher affiliation, logo, or reference to Elsevier/Cell/
+  ScienceDirect/etc. anywhere in the code, UI, or metadata.
+- Do NOT ship a "Submit manuscript" button until the submission flow works.
+- Every button that exists must do something real. If it can't yet, it doesn't exist.
+- Ask clarifying questions before building if anything is ambiguous.

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Journal of MetaResistome (JMR) | International Journal of AMR & Pathogen Genomics</title>
+  
+  <!-- Scholarly & SEO Metadata -->
+  <meta name="description" content="Journal of MetaResistome (JMR) is an independent, peer-reviewed international scientific journal dedicated to antimicrobial resistance, pathogen genomics, and metagenomic surveillance.">
+  <meta name="keywords" content="MetaResistome, antimicrobial resistance, AMR, pathogen genomics, metagenomics, wastewater epidemiology, resistome, bioinformatics">
+  <meta name="author" content="Journal of MetaResistome">
+  
+  <link rel="icon" type="image/png" href="manus-storage/metaresistome-atlas-mark_5e6d294d.png">
+  <link rel="stylesheet" href="css/journal.css">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       TOP UTILITY BAR
+       ═══════════════════════════════════════════ -->
+  <div class="utility-bar">
+    <div class="utility-inner">
+      <div class="utility-links">
+        <a href="about.html">About JMR</a>
+        <a href="guide-for-authors.html">Author Guidelines</a>
+        <a href="contact.html">Editorial Office</a>
+      </div>
+      <div class="utility-search">
+        <form class="utility-search-form" id="utility-search-form">
+          <input type="search" class="utility-search-input" id="utility-search-input" placeholder="Search articles, genes, taxa..." aria-label="Search journal">
+          <button type="submit" class="utility-search-btn" aria-label="Submit search">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       JOURNAL MASTHEAD
+       ═══════════════════════════════════════════ -->
+  <header class="journal-masthead">
+    <div class="masthead-inner">
+      <div class="masthead-branding">
+        <div class="masthead-mark-wrap">
+          <img src="manus-storage/metaresistome-atlas-mark_5e6d294d.png" alt="Journal of MetaResistome Mark" class="masthead-logo">
+          <span style="font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; color: var(--color-secondary); text-transform: uppercase;">Independent Scholarly Publishing</span>
+        </div>
+        <h1 class="masthead-title">
+          <a href="index.html">Journal of MetaResistome</a>
+        </h1>
+        <p class="masthead-subtitle">An International Journal of Antimicrobial Resistance, Pathogen Genomics & Microbial Surveillance</p>
+      </div>
+      
+      <div class="masthead-badges">
+        <div class="badge-open-access">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C9.243 2 7 4.243 7 7v3H6c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-8c0-1.103-.897-2-2-2h-1V7c0-2.757-2.243-5-5-5zm0 2c1.654 0 3 1.346 3 3v3H9V7c0-1.654 1.346-3 3-3zm-6 8h12l.002 8H6v-8z"/></svg>
+          Open Access
+        </div>
+        <!-- Feature-flagged slots: automatically hidden if null -->
+        <div id="masthead-issn-slot" style="display: none; font-size: 0.775rem; color: var(--color-text-light);"></div>
+        <div id="masthead-metrics-slot" class="masthead-metrics-slot"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       PRIMARY NAVIGATION (Real <a> Links - New Tab Compatible)
+       ═══════════════════════════════════════════ -->
+  <nav class="primary-nav" aria-label="Main Navigation">
+    <div class="nav-inner">
+      <ul class="nav-list">
+        <li class="nav-item active"><a href="index.html">Home</a></li>
+        <li class="nav-item"><a href="articles.html">Articles</a></li>
+        <li class="nav-item"><a href="issues.html">Issues</a></li>
+        <li class="nav-item"><a href="guide-for-authors.html">Guide for Authors</a></li>
+        <li class="nav-item"><a href="editorial-board.html">Editorial Board</a></li>
+        <li class="nav-item"><a href="aims-and-scope.html">Aims & Scope</a></li>
+        <li class="nav-item"><a href="about.html">About</a></li>
+        <li class="nav-item"><a href="contact.html">Contact</a></li>
+      </ul>
+      
+      <!-- Feature-flagged CTA: Hidden until submissionLive === true -->
+      <div class="nav-submit-cta" id="nav-submit-cta">
+        <a href="guide-for-authors.html" class="btn-submit-nav">Submit Paper</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       HERO / JOURNAL WELCOME BLOCK
+       ═══════════════════════════════════════════ -->
+  <section class="journal-hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <h2>Advancing Pathogen Intelligence Through Open Genomic Science</h2>
+        <p>The <em>Journal of MetaResistome (JMR)</em> is an independent, peer-reviewed open-access journal dedicated to publishing foundational and translational research on antimicrobial resistance (AMR), whole-genome sequencing of high-threat pathogens, wastewater metagenomics, and One Health surveillance.</p>
+        <p>Governed by active domain researchers and free from commercial publisher constraints, JMR provides rapid, constructive peer review focused on methodological transparency and data reproducibility.</p>
+        
+        <div class="hero-actions">
+          <a href="guide-for-authors.html" class="btn-academic btn-academic-primary">Guide for Authors</a>
+          <button class="btn-academic btn-academic-secondary" data-modal-target="aimsAndScope">Read Aims & Scope</button>
+        </div>
+      </div>
+      
+      <div class="hero-sidebar-card">
+        <h3>Journal Overview</h3>
+        <ul class="journal-facts">
+          <li>
+            <span class="fact-label">Editor-in-Chief</span>
+            <span class="fact-value">Dr. Shafiq</span>
+          </li>
+          <li>
+            <span class="fact-label">Publishing Model</span>
+            <span class="fact-value">Diamond Open Access</span>
+          </li>
+          <li>
+            <span class="fact-label">Review Process</span>
+            <span class="fact-value">Single-Blind Peer Review</span>
+          </li>
+          <li>
+            <span class="fact-label">Publication Cadence</span>
+            <span class="fact-value">Continuous Publication</span>
+          </li>
+          <li>
+            <span class="fact-label">Copyright</span>
+            <span class="fact-value">CC BY 4.0 (Authors retain)</span>
+          </li>
+          <li>
+            <span class="fact-label">Affiliation</span>
+            <span class="fact-value">Independent Scholarly Platform</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN TWO-COLUMN JOURNAL LAYOUT
+       ═══════════════════════════════════════════ -->
+  <main class="journal-main">
+    <div class="journal-content-column">
+      
+      <!-- Call for Papers: Inaugural Issue -->
+      <div class="call-for-papers-card">
+        <span class="cfp-badge">Call for Inaugural Papers — Volume 1 (2026)</span>
+        <h3>Genomic Epidemiology and the Environmental Resistome</h3>
+        <p>The <em>Journal of MetaResistome</em> invites original research articles, bioinformatic methodology reports, and critical reviews for its inaugural volume. We welcome investigations characterizing resistome architecture, horizontal gene transfer in aquatic matrices, and clinical-environmental resistance interfaces.</p>
+        
+        <div class="cfp-topics">
+          <span class="cfp-tag">Whole-Genome Sequencing (WGS)</span>
+          <span class="cfp-tag">Wastewater Epidemiology</span>
+          <span class="cfp-tag">Novel ARG Discovery</span>
+          <span class="cfp-tag">Plasmid Mobilome</span>
+          <span class="cfp-tag">One Health Transmission</span>
+        </div>
+        
+        <div style="display: flex; gap: 1rem; align-items: center;">
+          <a href="guide-for-authors.html" class="btn-academic btn-academic-primary" style="font-size: 0.825rem; padding: 0.45rem 1rem;">View Author Instructions</a>
+          <a href="aims-and-scope.html" class="section-link-more">Check Subject Coverage &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Scope & Guidelines Dual Preview Cards -->
+      <div class="journal-section-heading">
+        <span>Editorial Scope & Standards</span>
+      </div>
+
+      <div class="preview-grid">
+        <div class="preview-card">
+          <div>
+            <h4>Aims & Scope</h4>
+            <p>JMR covers the full continuum of resistance biology—from molecular genetics and plasmid biology to metagenomic sewage epidemiology and clinical pathogen surveillance.</p>
+          </div>
+          <div class="preview-actions">
+            <button class="btn-modal-trigger" data-modal-target="aimsAndScope">Quick preview</button>
+            <span style="color: var(--color-border-medium);">|</span>
+            <a href="aims-and-scope.html" class="link-full-page">Open full page &rarr;</a>
+          </div>
+        </div>
+
+        <div class="preview-card">
+          <div>
+            <h4>Guide for Authors</h4>
+            <p>Clear requirements for article types, manuscript formatting, raw sequencing data deposition (INSDC/SRA), and reproducible bioinformatic code archiving.</p>
+          </div>
+          <div class="preview-actions">
+            <button class="btn-modal-trigger" data-modal-target="guideForAuthors">Quick preview</button>
+            <span style="color: var(--color-border-medium);">|</span>
+            <a href="guide-for-authors.html" class="link-full-page">Open full page &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Research Spotlight (Visual Element) -->
+      <div class="journal-section-heading">
+        <span>Focus Areas & Metagenomic Intelligence</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+        <div style="border: 1px solid var(--color-border-light); background: #FFF; padding: 1.25rem;">
+          <img src="manus-storage/metaresistome-3d-resistome_633d7c2f.png" alt="3D Resistome Visualization" style="width: 100%; height: 180px; object-fit: cover; border-radius: 2px; margin-bottom: 0.85rem;" />
+          <h4 style="font-family: var(--font-serif); font-size: 1.1rem; color: var(--color-primary); margin-bottom: 0.4rem;">High-Dimensional Resistome Dynamics</h4>
+          <p style="font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.55;">Tracing multidrug resistance gene networks across wastewater treatment effluent, hospital sewage, and downstream agricultural runoff.</p>
+        </div>
+
+        <div style="border: 1px solid var(--color-border-light); background: #FFF; padding: 1.25rem;">
+          <img src="manus-storage/metaresistome-3d-one-health_a9c56791.png" alt="One Health Genomics" style="width: 100%; height: 180px; object-fit: cover; border-radius: 2px; margin-bottom: 0.85rem;" />
+          <h4 style="font-family: var(--font-serif); font-size: 1.1rem; color: var(--color-primary); margin-bottom: 0.4rem;">One Health Molecular Surveillance</h4>
+          <p style="font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.55;">Integrating veterinary, human clinical, and ecological genomics to anticipate zoonotic transmission vectors and resistance dissemination.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SIDEBAR
+         ═══════════════════════════════════════════ -->
+    <aside class="journal-sidebar">
+      
+      <!-- Editorial Spotlight -->
+      <div class="sidebar-widget">
+        <h3 class="widget-title">Editor-in-Chief</h3>
+        <div class="editorial-widget-item">
+          <img src="manus-storage/dr-shafiq-microbiology-lab-portrait_6437b0f3.webp" alt="Dr. Shafiq" class="editorial-avatar">
+          <div class="editorial-details">
+            <h5>Dr. Shafiq</h5>
+            <div class="editorial-role">Founding Editor</div>
+            <div class="editorial-affil">Pathogen Genomics & Metagenomics Laboratory</div>
+          </div>
+        </div>
+        <div class="editorial-widget-links">
+          <button class="btn-modal-trigger" data-modal-target="editorialBoard">Board Preview</button>
+          <a href="editorial-board.html" class="link-full-page">Full Board &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Quick Navigation Widget -->
+      <div class="sidebar-widget">
+        <h3 class="widget-title">Author Services</h3>
+        <ul class="quick-links-list">
+          <li><a href="guide-for-authors.html"><span>Manuscript Preparation</span> <span>&rarr;</span></a></li>
+          <li><a href="aims-and-scope.html"><span>Aims and Scope</span> <span>&rarr;</span></a></li>
+          <li><a href="about.html"><span>Peer Review Standards</span> <span>&rarr;</span></a></li>
+          <li><a href="about.html"><span>Open Access Policy (CC BY 4.0)</span> <span>&rarr;</span></a></li>
+          <li><a href="contact.html"><span>Editorial Inquiries</span> <span>&rarr;</span></a></li>
+        </ul>
+      </div>
+
+      <!-- Publisher Independence Statement -->
+      <div class="sidebar-widget" style="background-color: var(--color-bg-subtle);">
+        <h3 class="widget-title">Ethical Commitment</h3>
+        <p style="font-size: 0.825rem; color: var(--color-text-muted); line-height: 1.55; margin-bottom: 0.75rem;">
+          JMR adheres to the Core Practices of the Committee on Publication Ethics (COPE). We uphold absolute editorial independence and research transparency.
+        </p>
+        <a href="about.html" class="link-full-page" style="font-weight: 600; color: var(--color-secondary);">Learn about our standards &rarr;</a>
+      </div>
+
+    </aside>
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       DUAL-PATTERN ACCESSIBLE MODAL DRAWER
+       ═══════════════════════════════════════════ -->
+  <div class="journal-modal-backdrop" id="journal-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="journal-modal-container">
+      <div class="journal-modal-header">
+        <div class="modal-header-titles">
+          <span class="modal-journal-label">Journal of MetaResistome</span>
+          <h3 id="modal-title">Quick Preview</h3>
+        </div>
+        <button class="journal-modal-close" id="journal-modal-close" aria-label="Close dialog">&times;</button>
+      </div>
+      <div class="journal-modal-body page-body-article" id="modal-body">
+        <!-- Rendered dynamically from JOURNAL_CONTENT -->
+      </div>
+      <div class="journal-modal-footer">
+        <span style="color: var(--color-text-light);">Press ESC to close</span>
+        <a href="#" class="btn-open-full-page" id="modal-full-page-link">Open full page &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       ACADEMIC FOOTER
+       ═══════════════════════════════════════════ -->
+  <footer class="journal-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h4>Journal of MetaResistome</h4>
+          <p>An independent, international peer-reviewed scholarly journal dedicated to antimicrobial resistance, pathogen genomics, and metagenomic surveillance.</p>
+          <p style="font-size: 0.775rem; color: #8C9BAE;">Diamond Open Access &bull; CC BY 4.0 &bull; Continuous Publication</p>
+        </div>
+
+        <div class="footer-col">
+          <h5>Content & Issues</h5>
+          <ul class="footer-links">
+            <li><a href="articles.html">Latest Articles</a></li>
+            <li><a href="issues.html">All Volumes & Issues</a></li>
+            <li><a href="articles.html">Call for Papers (Vol 1)</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>For Authors</h5>
+          <ul class="footer-links">
+            <li><a href="guide-for-authors.html">Author Guidelines</a></li>
+            <li><a href="aims-and-scope.html">Aims & Scope</a></li>
+            <li><a href="about.html">Publication Ethics</a></li>
+            <li><a href="about.html">Data Policy</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Editorial Team</h5>
+          <ul class="footer-links">
+            <li><a href="editorial-board.html">Editor-in-Chief</a></li>
+            <li><a href="editorial-board.html">Section Editors</a></li>
+            <li><a href="contact.html">Contact Office</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Journal of MetaResistome (JMR). All articles published under Creative Commons CC BY 4.0.</div>
+        <div class="footer-bottom-links">
+          <a href="about.html">Privacy Policy</a>
+          <a href="about.html">Terms of Service</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Unified Runtime Scripts -->
+  <script src="js/journal-config.js"></script>
+  <script src="js/journal-content.js"></script>
+  <script src="js/journal-engine.js"></script>
+</body>
+</html>

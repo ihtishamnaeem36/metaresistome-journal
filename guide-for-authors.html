@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide for Authors | Journal of MetaResistome</title>
+  <meta name="description" content="Guide for Authors for the Journal of MetaResistome (JMR) - Manuscript preparation, formatting, computational standards, and ethical compliance.">
+  <link rel="icon" type="image/png" href="manus-storage/metaresistome-atlas-mark_5e6d294d.png">
+  <link rel="stylesheet" href="css/journal.css">
+</head>
+<body>
+
+  <!-- Top Utility Bar -->
+  <div class="utility-bar">
+    <div class="utility-inner">
+      <div class="utility-links">
+        <a href="about.html">About JMR</a>
+        <a href="guide-for-authors.html">Author Guidelines</a>
+        <a href="contact.html">Editorial Office</a>
+      </div>
+      <div class="utility-search">
+        <form class="utility-search-form" id="utility-search-form">
+          <input type="search" class="utility-search-input" id="utility-search-input" placeholder="Search journal..." aria-label="Search journal">
+          <button type="submit" class="utility-search-btn" aria-label="Search">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Masthead -->
+  <header class="journal-masthead">
+    <div class="masthead-inner">
+      <div class="masthead-branding">
+        <div class="masthead-mark-wrap">
+          <img src="manus-storage/metaresistome-atlas-mark_5e6d294d.png" alt="Logo" class="masthead-logo">
+          <span style="font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; color: var(--color-secondary); text-transform: uppercase;">Independent Scholarly Publishing</span>
+        </div>
+        <h1 class="masthead-title">
+          <a href="index.html">Journal of MetaResistome</a>
+        </h1>
+        <p class="masthead-subtitle">An International Journal of Antimicrobial Resistance, Pathogen Genomics & Microbial Surveillance</p>
+      </div>
+      <div class="masthead-badges">
+        <div class="badge-open-access">Open Access</div>
+        <div id="masthead-issn-slot" style="display: none; font-size: 0.775rem;"></div>
+        <div id="masthead-metrics-slot" class="masthead-metrics-slot"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Primary Navigation -->
+  <nav class="primary-nav" aria-label="Main Navigation">
+    <div class="nav-inner">
+      <ul class="nav-list">
+        <li class="nav-item"><a href="index.html">Home</a></li>
+        <li class="nav-item"><a href="articles.html">Articles</a></li>
+        <li class="nav-item"><a href="issues.html">Issues</a></li>
+        <li class="nav-item active"><a href="guide-for-authors.html">Guide for Authors</a></li>
+        <li class="nav-item"><a href="editorial-board.html">Editorial Board</a></li>
+        <li class="nav-item"><a href="aims-and-scope.html">Aims & Scope</a></li>
+        <li class="nav-item"><a href="about.html">About</a></li>
+        <li class="nav-item"><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Content Container -->
+  <div class="page-container">
+    <header class="page-header">
+      <div class="breadcrumbs">
+        <a href="index.html">Home</a> &gt; <span>Guide for Authors</span>
+      </div>
+      <h2 class="page-title">Guide for Authors</h2>
+      <p class="page-subtitle">Instructions on manuscript preparation, article formats, sequencing data deposition, and computational standards.</p>
+    </header>
+
+    <main class="page-body-article">
+      <h3>Article Categories</h3>
+      <ul>
+        <li><strong>Original Research Articles:</strong> Full-length empirical studies presenting novel scientific discoveries (recommended length: 3,500–6,500 words, up to 8 figures/tables).</li>
+        <li><strong>Methodology & Protocol Reports:</strong> Validated wet-lab protocols, bioinformatic benchmarking studies, or software tools accompanied by open source code (recommended length: 3,000–5,000 words).</li>
+        <li><strong>Review Articles & Critical Perspectives:</strong> Authoritative, comprehensive syntheses of emerging topics in AMR, pathogen surveillance, or microbial genomics (recommended length: 5,000–8,000 words).</li>
+        <li><strong>Short Communications / Genome Announcements:</strong> Concise reports of novel resistance plasmids, outbreak isolates, or localized resistome datasets (up to 2,000 words, 2 figures/tables).</li>
+      </ul>
+
+      <h3>Manuscript Structure</h3>
+      <p>Manuscripts must be organized into the following clear sections:</p>
+      <ol>
+        <li><strong>Title Page:</strong> Concise, informative title (avoid vague jargon); full author names, institutional affiliations, and corresponding author email.</li>
+        <li><strong>Abstract:</strong> Structured or unstructured, maximum 250 words, summarizing background, methods, key findings, and biological significance.</li>
+        <li><strong>Keywords:</strong> 4 to 6 specific keywords separated by semicolons.</li>
+        <li><strong>Introduction:</strong> Scientific context, existing knowledge gaps, and stated study objectives.</li>
+        <li><strong>Materials and Methods:</strong> Detailed descriptions enabling complete replication. For computational analyses, specify software versions, parameters, and repositories.</li>
+        <li><strong>Results:</strong> Clear, concise presentation supported by publication-grade figures and statistical confidence intervals.</li>
+        <li><strong>Discussion:</strong> Interpretation of results, contextualization within global literature, limitations, and future directions.</li>
+        <li><strong>Data Availability Statement:</strong> Mandatory accession numbers (NCBI BioProject, SRA, GenBank, ENA) and code repository links (GitHub/Zenodo).</li>
+        <li><strong>Funding & Competing Interests:</strong> Disclose all sources of financial support and explicit statements regarding conflicts of interest.</li>
+        <li><strong>References:</strong> Complete citations formatted according to JMR bibliographic standards.</li>
+      </ol>
+
+      <h3>Reproducible Computational Standards</h3>
+      <p>For papers involving genomics and metagenomics, all raw sequencing reads must be deposited in an INSDC repository (NCBI SRA, ENA, or DDBJ) prior to publication. Custom scripts and bioinformatic pipelines must be archived with a permanent DOI (e.g., via Zenodo or Figshare).</p>
+    </main>
+  </div>
+
+  <!-- Academic Footer -->
+  <footer class="journal-footer">
+    <div class="footer-inner">
+      <div class="footer-bottom">
+        <div>&copy; 2026 Journal of MetaResistome (JMR). Published under CC BY 4.0.</div>
+        <div class="footer-bottom-links">
+          <a href="index.html">Home</a>
+          <a href="guide-for-authors.html">Author Guidelines</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/journal-config.js"></script>
+  <script src="js/journal-engine.js"></script>
+</body>
+</html>
