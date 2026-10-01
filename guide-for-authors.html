@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Guide for Authors | Journal of MetaResistome</title>
-  <meta name="description" content="Guide for Authors for the Journal of MetaResistome (JMR) - Manuscript preparation, formatting, computational standards, and ethical compliance.">
+  <meta name="description" content="Comprehensive Guide for Authors for the Journal of MetaResistome (JMR) - Manuscript preparation, formatting, computational standards, and research ethics.">
   <link rel="icon" type="image/png" href="manus-storage/metaresistome-atlas-mark_5e6d294d.png">
   <link rel="stylesheet" href="css/journal.css">
 </head>
@@ -15,7 +15,7 @@
     <div class="utility-inner">
       <div class="utility-links">
         <a href="about.html">About JMR</a>
-        <a href="guide-for-authors.html">Author Guidelines</a>
+        <a href="guide-for-authors.html" style="font-weight: 600; color: var(--color-primary);">Author Guidelines</a>
         <a href="contact.html">Editorial Office</a>
       </div>
       <div class="utility-search">
@@ -50,58 +50,318 @@
     </div>
   </header>
 
-  <!-- Primary Navigation -->
+  <!-- Primary Navigation with Dropdowns -->
   <nav class="primary-nav" aria-label="Main Navigation">
     <div class="nav-inner">
       <ul class="nav-list">
         <li class="nav-item"><a href="index.html">Home</a></li>
-        <li class="nav-item"><a href="articles.html">Articles</a></li>
-        <li class="nav-item"><a href="issues.html">Issues</a></li>
-        <li class="nav-item active"><a href="guide-for-authors.html">Guide for Authors</a></li>
-        <li class="nav-item"><a href="editorial-board.html">Editorial Board</a></li>
-        <li class="nav-item"><a href="aims-and-scope.html">Aims & Scope</a></li>
-        <li class="nav-item"><a href="about.html">About</a></li>
+        
+        <!-- Articles & Issues Dropdown -->
+        <li class="nav-dropdown">
+          <button class="nav-dropdown-toggle" aria-expanded="false">
+            Articles & Issues
+            <svg class="dropdown-caret" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </button>
+          <ul class="nav-dropdown-menu">
+            <li><a href="articles.html">Latest Articles</a></li>
+            <li><a href="issues.html">All Volumes & Issues</a></li>
+            <li><a href="articles.html">Call for Inaugural Papers (Vol 1)</a></li>
+          </ul>
+        </li>
+
+        <!-- About Dropdown -->
+        <li class="nav-dropdown">
+          <button class="nav-dropdown-toggle" aria-expanded="false">
+            About
+            <svg class="dropdown-caret" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </button>
+          <ul class="nav-dropdown-menu">
+            <li><a href="aims-and-scope.html">Aims and Scope</a></li>
+            <li><a href="editorial-board.html">Editorial Board & Governance</a></li>
+            <li><a href="about.html">About the Journal</a></li>
+            <li><a href="about.html">Publishing Ethics & COPE Standards</a></li>
+          </ul>
+        </li>
+
+        <!-- Publish Dropdown -->
+        <li class="nav-dropdown">
+          <button class="nav-dropdown-toggle" style="color: var(--color-primary); border-bottom-color: var(--color-primary);" aria-expanded="false">
+            Publish
+            <svg class="dropdown-caret" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </button>
+          <ul class="nav-dropdown-menu">
+            <li><a href="guide-for-authors.html" style="font-weight: 600;">Guide for Authors</a></li>
+            <li><a href="guide-for-authors.html#submission-checklist">Submission Checklist</a></li>
+            <li><a href="about.html">Open Access (CC BY 4.0)</a></li>
+            <li><a href="guide-for-authors.html#data-statement">Research Data Policy</a></li>
+          </ul>
+        </li>
+
         <li class="nav-item"><a href="contact.html">Contact</a></li>
       </ul>
+
+      <div class="nav-right-actions">
+        <a href="contact.html" class="nav-action-link">Editorial Office &rarr;</a>
+      </div>
     </div>
   </nav>
 
-  <!-- Page Content Container -->
-  <div class="page-container">
-    <header class="page-header">
-      <div class="breadcrumbs">
-        <a href="index.html">Home</a> &gt; <span>Guide for Authors</span>
-      </div>
-      <h2 class="page-title">Guide for Authors</h2>
-      <p class="page-subtitle">Instructions on manuscript preparation, article formats, sequencing data deposition, and computational standards.</p>
-    </header>
-
-    <main class="page-body-article">
-      <h3>Article Categories</h3>
-      <ul>
-        <li><strong>Original Research Articles:</strong> Full-length empirical studies presenting novel scientific discoveries (recommended length: 3,500–6,500 words, up to 8 figures/tables).</li>
-        <li><strong>Methodology & Protocol Reports:</strong> Validated wet-lab protocols, bioinformatic benchmarking studies, or software tools accompanied by open source code (recommended length: 3,000–5,000 words).</li>
-        <li><strong>Review Articles & Critical Perspectives:</strong> Authoritative, comprehensive syntheses of emerging topics in AMR, pathogen surveillance, or microbial genomics (recommended length: 5,000–8,000 words).</li>
-        <li><strong>Short Communications / Genome Announcements:</strong> Concise reports of novel resistance plasmids, outbreak isolates, or localized resistome datasets (up to 2,000 words, 2 figures/tables).</li>
+  <!-- Two-Column Guide for Authors Layout with Sticky TOC -->
+  <div class="guide-container">
+    
+    <!-- Table of Contents Sidebar -->
+    <aside class="guide-sidebar-nav">
+      <div class="guide-toc-title">Guide for Authors</div>
+      <ul class="guide-toc-list">
+        <li><a href="#about-and-scope">1. About & Scope Validation</a></li>
+        <li><a href="#article-types">2. Article Categories</a></li>
+        <li><a href="#peer-review">3. Peer Review Process</a></li>
+        <li><a href="#open-access">4. Open Access & Licensing</a></li>
+        <li><a href="#ethics-and-policies">5. Ethics and Policies</a></li>
+        <li style="padding-left: 0.75rem;"><a href="#authorship">&bull; Authorship & Accountability</a></li>
+        <li style="padding-left: 0.75rem;"><a href="#competing-interests">&bull; Competing Interests</a></li>
+        <li style="padding-left: 0.75rem;"><a href="#funding-sources">&bull; Funding Disclosure</a></li>
+        <li style="padding-left: 0.75rem;"><a href="#generative-ai">&bull; Generative AI Policy</a></li>
+        <li style="padding-left: 0.75rem;"><a href="#preprints">&bull; Preprints (bioRxiv/medRxiv)</a></li>
+        <li style="padding-left: 0.75rem;"><a href="#image-integrity">&bull; Image Integrity & Blots</a></li>
+        <li><a href="#writing-and-formatting">6. Writing & Formatting</a></li>
+        <li style="padding-left: 0.75rem;"><a href="#title-page">&bull; Title Page & Highlights</a></li>
+        <li style="padding-left: 0.75rem;"><a href="#graphical-abstract">&bull; Graphical Abstract</a></li>
+        <li style="padding-left: 0.75rem;"><a href="#article-structure">&bull; Manuscript Structure</a></li>
+        <li style="padding-left: 0.75rem;"><a href="#tables-figures">&bull; Figures & Artwork</a></li>
+        <li style="padding-left: 0.75rem;"><a href="#data-statement">&bull; Data Availability (Mandatory)</a></li>
+        <li style="padding-left: 0.75rem;"><a href="#references">&bull; Reference Formatting</a></li>
+        <li><a href="#submission-checklist">7. Pre-Submission Checklist</a></li>
       </ul>
 
-      <h3>Manuscript Structure</h3>
-      <p>Manuscripts must be organized into the following clear sections:</p>
-      <ol>
-        <li><strong>Title Page:</strong> Concise, informative title (avoid vague jargon); full author names, institutional affiliations, and corresponding author email.</li>
-        <li><strong>Abstract:</strong> Structured or unstructured, maximum 250 words, summarizing background, methods, key findings, and biological significance.</li>
-        <li><strong>Keywords:</strong> 4 to 6 specific keywords separated by semicolons.</li>
-        <li><strong>Introduction:</strong> Scientific context, existing knowledge gaps, and stated study objectives.</li>
-        <li><strong>Materials and Methods:</strong> Detailed descriptions enabling complete replication. For computational analyses, specify software versions, parameters, and repositories.</li>
-        <li><strong>Results:</strong> Clear, concise presentation supported by publication-grade figures and statistical confidence intervals.</li>
-        <li><strong>Discussion:</strong> Interpretation of results, contextualization within global literature, limitations, and future directions.</li>
-        <li><strong>Data Availability Statement:</strong> Mandatory accession numbers (NCBI BioProject, SRA, GenBank, ENA) and code repository links (GitHub/Zenodo).</li>
-        <li><strong>Funding & Competing Interests:</strong> Disclose all sources of financial support and explicit statements regarding conflicts of interest.</li>
-        <li><strong>References:</strong> Complete citations formatted according to JMR bibliographic standards.</li>
-      </ol>
+      <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px dotted var(--color-border-light);">
+        <a href="contact.html" class="btn-academic btn-academic-secondary" style="font-size: 0.775rem; width: 100%; justify-content: center;">Contact Editorial Desk</a>
+      </div>
+    </aside>
 
-      <h3>Reproducible Computational Standards</h3>
-      <p>For papers involving genomics and metagenomics, all raw sequencing reads must be deposited in an INSDC repository (NCBI SRA, ENA, or DDBJ) prior to publication. Custom scripts and bioinformatic pipelines must be archived with a permanent DOI (e.g., via Zenodo or Figshare).</p>
+    <!-- Main Detailed Guidelines Content -->
+    <main class="guide-main-content page-body-article">
+      
+      <div class="page-header" style="margin-bottom: 2rem;">
+        <div class="breadcrumbs">
+          <a href="index.html">Home</a> &gt; <a href="guide-for-authors.html">Publish</a> &gt; <span>Guide for Authors</span>
+        </div>
+        <h2 class="page-title">Guide for Authors</h2>
+        <p class="page-subtitle">Comprehensive submission requirements, editorial standards, computational reproducibility guidelines, and publication ethics for the Journal of MetaResistome.</p>
+      </div>
+
+      <!-- Section 1 -->
+      <section id="about-and-scope">
+        <h3>1. About the Journal & Scope Validation</h3>
+        <p>The <strong>Journal of MetaResistome (JMR)</strong> is an international scholarly forum dedicated to advancing world-class scientific research in antimicrobial resistance (AMR), whole-genome sequencing (WGS), and environmental pathogen intelligence. We publish high-impact empirical investigations, bioinformatics methodology reports, and critical reviews that decipher the emergence, dissemination, and mitigation of resistant pathogens.</p>
+        
+        <p>Before submitting, authors must ensure their manuscript directly addresses two fundamental scope criteria:</p>
+        <ol>
+          <li><strong>Is the biological focus directly tied to antimicrobial resistance, pathogen genomics, or microbial surveillance?</strong> Studies that investigate benign environmental commensals without relevance to AMR, pathogenicity, mobile genetic elements, or public health surveillance fall outside JMR's scope.</li>
+          <li><strong>Is the study conducted under biologically or environmentally realistic conditions?</strong> Metagenomic surveillance, wastewater monitoring, and phenotypic resistance assays must reflect realistic ecological or clinical exposure levels. In computational papers, bioinformatic workflows must be benchmarked against standard reference databases.</li>
+        </ol>
+      </section>
+
+      <!-- Section 2 -->
+      <section id="article-types">
+        <h3>2. Article Categories</h3>
+        
+        <h4>Original Research Articles</h4>
+        <p>Full-length primary empirical studies presenting original scientific discoveries within the journal's scope. Contributions must not be submitted in multiple parts (i.e., Part I and Part II); they must be consolidated into a single comprehensive manuscript. Recommended length: 3,500 to 6,500 words (excluding references), with up to 8 publication-grade figures/tables.</p>
+
+        <h4>Review Articles</h4>
+        <p>Critical, authoritative evaluations of defined topics, emerging resistome challenges, or innovative surveillance methodologies. Review articles must synthesize current knowledge, identify unresolved paradoxes, and outline future research trajectories. In their cover letter, authors of Review Articles must provide: (1) a clear rationale for the timeliness and novelty of the review compared to existing literature; (2) a summary of the authors' domain expertise; and (3) a list of their recent relevant publications.</p>
+
+        <h4>Methodology & Bioinformatic Protocol Reports</h4>
+        <p>Detailed reports validating novel computational algorithms, machine learning models for resistance gene annotation, wet-lab extraction protocols for complex environmental matrices (e.g. sewage/sludge), or benchmarking studies. All computational code, software packages, or scripts must be open source and deposited in a public repository with an immutable DOI (Zenodo, Figshare, or GitHub).</p>
+
+        <h4>Perspectives & Short Genome Announcements</h4>
+        <p>Concise communications presenting critical perspectives by experienced researchers on emerging AMR policies, or brief reports announcing complete, closed genomes of high-threat multidrug-resistant clinical or wastewater isolates. Length: up to 2,000 words, up to 2 display items.</p>
+      </section>
+
+      <!-- Section 3 -->
+      <section id="peer-review">
+        <h3>3. Peer Review Process</h3>
+        <p>JMR adheres to a <strong>single-anonymized peer review</strong> process. Every submitted manuscript is initially assessed by the Founding Editor-in-Chief or a Handling Section Editor for scientific scope, formatting compliance, and ethical standards.</p>
+        
+        <p>Submissions passing initial triage are assigned to a minimum of two independent, active expert reviewers. The final editorial decision (Accept, Minor Revision, Major Revision, or Reject) rests with the responsible Editor. Editorial board members are recused from decisions concerning papers:</p>
+        <ul>
+          <li>Which they have authored or co-authored.</li>
+          <li>Authored by current or recent departmental colleagues or close scientific collaborators.</li>
+          <li>In which they have a personal, professional, or commercial conflict of interest.</li>
+        </ul>
+        <p>Authors may submit a formal appeal regarding an editorial rejection provided it presents factual, substantive scientific counter-evidence. Only one appeal per manuscript will be considered, and the appeal ruling is final.</p>
+      </section>
+
+      <!-- Section 4 -->
+      <section id="open-access">
+        <h3>4. Open Access, Copyright & Licensing</h3>
+        <p>All articles in the <em>Journal of MetaResistome</em> are published under the <strong>Creative Commons Attribution 4.0 International (CC BY 4.0)</strong> license. Under this license:</p>
+        <ul>
+          <li><strong>Authors retain unrestricted copyright</strong> of their published work.</li>
+          <li>Readers around the globe can freely read, download, copy, distribute, search, link, and cite the work without payment or barrier.</li>
+          <li>Commercial and non-commercial reuse is permitted, provided proper attribution is given to the original authors and JMR as the venue of initial publication.</li>
+          <li><strong>Inaugural Volume Waiver:</strong> No Article Processing Charges (APCs) are levied for accepted manuscripts submitted during the inaugural volume period.</li>
+        </ul>
+      </section>
+
+      <!-- Section 5 -->
+      <section id="ethics-and-policies">
+        <h3>5. Ethics and Publishing Policies</h3>
+        
+        <h4>Submission Declaration</h4>
+        <p>Submission of an article implies that:</p>
+        <ul>
+          <li>The work described has not been published previously (except in the form of an academic thesis, published lecture, conference abstract, or recognized preprint).</li>
+          <li>The manuscript is not under active consideration for publication elsewhere.</li>
+          <li>Publication has been approved by all listed co-authors and by the responsible authorities at the institution where the work was performed.</li>
+        </ul>
+
+        <h4 id="authorship">Authorship Criteria & Accountability</h4>
+        <p>Authorship credit must be grounded in the International Committee of Medical Journal Editors (ICMJE) guidelines. All listed authors must meet all four criteria:</p>
+        <ol>
+          <li>Substantial contributions to the conception or design of the study, or the acquisition, analysis, or interpretation of data.</li>
+          <li>Drafting the work or critically revising it for vital intellectual content.</li>
+          <li>Final approval of the version submitted and published.</li>
+          <li>Agreement to be accountable for all aspects of the work ensuring accuracy and integrity.</li>
+        </ol>
+        <p>Contributors who do not meet all four criteria (such as technical assistants, language editors, or laboratory heads who provided general supervision) should be recognized in the <em>Acknowledgments</em> section.</p>
+
+        <h4 id="competing-interests">Declaration of Competing Interests</h4>
+        <p>Authors must declare any financial, commercial, or personal relationships with individuals or organizations that could inappropriately influence or bias their research. If no competing interests exist, authors must explicitly state:</p>
+        <div class="code-quote-box">
+          "The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper."
+        </div>
+
+        <h4 id="funding-sources">Funding Sources Disclosure</h4>
+        <p>Authors must disclose all sources of financial support. Please format funding disclosures in the following standardized manner to ensure funder compliance:</p>
+        <div class="policy-callout">
+          <h4>Funding Statement Format</h4>
+          <p><em>"This research was supported by the [Funder Name] [grant numbers xxxx, yyyy]; and the [Organization Name] [grant number zzzz]."</em></p>
+          <p>If no external funding was received, state: <em>"This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors."</em></p>
+        </div>
+
+        <h4 id="generative-ai">Declaration of Generative AI in Manuscript Preparation</h4>
+        <p>Authors must disclose any use of generative artificial intelligence (GenAI) technologies in the writing or preparation of the manuscript upon submission.</p>
+        <ul>
+          <li>AI tools must never be listed or cited as an author or co-author. Authorship implies legal and scientific accountability that can only be assumed by humans.</li>
+          <li>AI tools may only be used with direct human oversight. Authors remain 100% accountable for verifying the factual accuracy, citations, and authenticity of all text and data.</li>
+          <li><strong>Prohibition:</strong> Use of AI tools to generate, alter, or synthesize primary experimental data, microscopy micrographs, gel bands, or clinical images is strictly forbidden.</li>
+        </ul>
+        <div class="policy-callout">
+          <h4>Mandatory AI Disclosure Statement</h4>
+          <p>Place this statement before the References section if AI tools were utilized:</p>
+          <p class="code-quote-box">
+            "During the preparation of this manuscript, the author(s) used [Name of Tool/Version] in order to [Specify Purpose, e.g., improve readability / format initial draft]. After using this service, the author(s) reviewed and edited the content as needed and take full responsibility for the content of the published article."
+          </p>
+          <p style="font-size: 0.8rem; color: var(--color-text-muted);">*Basic spelling and grammar checkers do not require disclosure.</p>
+        </div>
+
+        <h4 id="preprints">Preprints & Open Science</h4>
+        <p>JMR encourages preprint posting on recognized community servers such as <strong>bioRxiv</strong>, <strong>medRxiv</strong>, and <strong>arXiv</strong>. Sharing a preprint prior to or during peer review does not constitute prior publication. Authors should notify the editorial desk of the preprint DOI upon submission so that upon publication, JMR can link the preprint directly to the final Version of Record.</p>
+
+        <h4 id="image-integrity">Image Manipulation & Integrity Standards</h4>
+        <p>Scientific images—including agarose gels, western blots, pulsed-field gel electrophoresis (PFPE), transmission electron microscopy (TEM), and clinical micrographs—represent primary observational evidence. No specific feature within an image may be enhanced, obscured, introduced, moved, or deleted.</p>
+        <ul>
+          <li>Linear brightness and contrast adjustments are acceptable only if applied uniformly across the entire image and do not obscure genuine background information.</li>
+          <li>All splices or grouped lanes in gel figures must be clearly delineated with dividing black or white lines and fully explained in the figure legend.</li>
+          <li>Authors must retain all original, uncropped, unprocessed raw image files. Editors may request raw data files during peer review.</li>
+        </ul>
+      </section>
+
+      <!-- Section 6 -->
+      <section id="writing-and-formatting">
+        <h3>6. Writing and Formatting Guidelines</h3>
+        
+        <h4>File Formats</h4>
+        <p>Manuscripts should be submitted as editable documents: Microsoft Word (<code>.docx</code>) or LaTeX (with compiled <code>.pdf</code> and bundled <code>.tex</code> source files). Use standard margins (2.5 cm / 1 inch), double line spacing, and continuous line numbering throughout the text.</p>
+
+        <h4 id="title-page">Title Page Requirements</h4>
+        <p>The title page must include:</p>
+        <ul>
+          <li><strong>Article Title:</strong> Informative, concise, avoiding acronyms and hyperbolic words like "First", "Novel", or "Paradigm-shifting".</li>
+          <li><strong>Author Names & Affiliations:</strong> Full given names and family names; institutional addresses with department, institution, city, and country.</li>
+          <li><strong>Corresponding Author:</strong> Clearly indicated with an asterisk (*), providing active institutional email address and telephone number.</li>
+          <li><strong>ORCID iDs:</strong> Authors are strongly encouraged to provide their 16-digit ORCID identifier.</li>
+        </ul>
+
+        <h4>Highlights & Abstract</h4>
+        <ul>
+          <li><strong>Highlights:</strong> 3 to 5 core bullet points (maximum 85 characters per bullet point including spaces) capturing the novel empirical findings of the study.</li>
+          <li><strong>Abstract:</strong> Maximum 250 words summarizing the rationale, methodology, primary results, and biological implications. Avoid literature citations in the abstract.</li>
+          <li><strong>Keywords:</strong> 4 to 6 specific keywords separated by semicolons (e.g. <em>Wastewater surveillance; Metagenomic NGS; Extended-spectrum beta-lactamase; One Health; Mobile resistome</em>).</li>
+        </ul>
+
+        <h4 id="graphical-abstract">Graphical Abstract</h4>
+        <p>Authors of Original Research and Review Articles are strongly encouraged to submit a Graphical Abstract upon final acceptance. This visual summary appears in the table of contents and social feeds to help researchers quickly grasp the study's central premise.</p>
+        <ul>
+          <li>Preferred dimensions: minimum 1200 &times; 675 pixels (16:9 aspect ratio) or 1000 &times; 1000 pixels.</li>
+          <li>Resolution: 300 DPI minimum; clear, uncluttered visual flow; legible font sizes (minimum 10 pt at display size).</li>
+        </ul>
+
+        <h4 id="article-structure">Manuscript Structure</h4>
+        <p>Original Research papers must be subdivided into numbered sections (e.g. 1. Introduction, 2. Materials and methods, 3. Results, 4. Discussion, 5. Conclusions):</p>
+        <ul>
+          <li><strong>1. Introduction:</strong> Clear statement of the global AMR or pathogen surveillance context, review of pertinent literature, and study objectives.</li>
+          <li><strong>2. Materials and Methods:</strong> Detailed procedures allowing complete reproduction. Specify strain identifiers, sampling coordinates, sequencing library preparation kits, sequencing platform (e.g., Illumina NovaSeq, Oxford Nanopore), software versions, and bioinformatic parameters.</li>
+          <li><strong>3. Results:</strong> Objective, logical presentation supported by figures and tables. Avoid redundant duplication of tabular data in narrative text.</li>
+          <li><strong>4. Discussion:</strong> Critical interpretation of findings in relation to global literature, biological significance, mechanism of resistance dissemination, limitations, and future outlook.</li>
+          <li><strong>5. Conclusions:</strong> Clear summary of the primary insights derived from the investigation.</li>
+        </ul>
+
+        <h4 id="tables-figures">Tables, Figures and Artwork</h4>
+        <ul>
+          <li><strong>Figures:</strong> Submit high-resolution TIFF, EPS, or vector PDF files. Line art: 600–1000 DPI; photographic micrographs: 300–600 DPI. Number figures consecutively using Arabic numerals (Figure 1, Figure 2).</li>
+          <li><strong>Legends:</strong> Each figure must have a self-contained legend explaining all symbols, abbreviations, and scale bars.</li>
+          <li><strong>Tables:</strong> Create tables using Word's table editor (do not embed tables as non-editable pictures). Place footnotes below the table body using superscript lowercase letters.</li>
+        </ul>
+
+        <h4 id="data-statement">Mandatory Research Data Availability Statement</h4>
+        <p>In accordance with JMR's open science commitment, <strong>all raw sequencing reads and assembled genomic contigs must be publicly accessible</strong> in an International Nucleotide Sequence Database Collaboration (INSDC) repository (NCBI SRA/GenBank, ENA, or DDBJ) prior to publication.</p>
+        
+        <div class="policy-callout">
+          <h4>Required Data Availability Statement Formats</h4>
+          <p>Include one of the following statements before the References list:</p>
+          <p><strong>Option A (Publicly Available):</strong> <em>"Raw metagenomic sequencing reads and assembled genomic sequences have been deposited in the NCBI Sequence Read Archive (SRA) under BioProject accession PRJNAXXXXXX. Associated bioinformatic scripts and custom pipelines are available on GitHub at [URL] and archived in Zenodo (DOI: 10.5281/zenodo.XXXXXXX)."</em></p>
+          <p><strong>Option B (Clinical Privacy Restrictions):</strong> <em>"De-identified genomic variant datasets supporting the findings are available in NCBI under BioProject PRJNAXXXXXX. Raw patient metadata cannot be shared publicly due to institutional ethical restrictions, but is available from the corresponding author upon reasonable scholarly request."</em></p>
+        </div>
+
+        <h4 id="references">Reference Style & Formatting</h4>
+        <p>JMR uses the numbered <strong>NLM / Vancouver citation style</strong>. Citations should be numbered consecutively in the text using bracketed numerals (e.g., [1], [2,3], [4-7]). Include complete author lists (up to 6 authors before using <em>et al.</em>) and DOIs for all cited literature.</p>
+        
+        <div class="code-quote-box">
+          <strong>Journal Article:</strong><br />
+          [1] Shafiq M, Naeem I, Martinez R, et al. Metagenomic profiling of carbapenemase resistance determinants across urban wastewater treatment infrastructures. <em>J MetaResistome</em>. 2026;1(1):101-115. doi:10.xxxx/jmr.2026.001
+        </div>
+      </section>
+
+      <!-- Section 7 -->
+      <section id="submission-checklist">
+        <h3>7. Pre-Submission Checklist</h3>
+        <p>Before transmitting your files to the editorial desk, please ensure that you have fulfilled all items on this checklist:</p>
+        
+        <div class="checklist-card">
+          <h4>Author Verification Checklist</h4>
+          <ul class="checklist-items">
+            <li><span class="check-icon">&#10003;</span> <strong>Single Corresponding Author:</strong> Appointed with up-to-date institutional email and affiliation.</li>
+            <li><span class="check-icon">&#10003;</span> <strong>All Files Present:</strong> Title page, full manuscript text with continuous line numbers, editable tables, high-resolution figures (300+ DPI), and supplementary files.</li>
+            <li><span class="check-icon">&#10003;</span> <strong>Highlights & Abstract:</strong> Highlights (3–5 bullets, &lt;85 characters each) and structured/unstructured abstract (&lt;250 words) included.</li>
+            <li><span class="check-icon">&#10003;</span> <strong>Data Availability Statement:</strong> Mandatory NCBI/INSDC BioProject/SRA accession numbers or Zenodo code repository DOIs explicitly stated.</li>
+            <li><span class="check-icon">&#10003;</span> <strong>Declarations Completed:</strong> Competing interests declared, funding sources disclosed, and Generative AI usage transparently declared.</li>
+            <li><span class="check-icon">&#10003;</span> <strong>Ethics Compliance:</strong> Compliance with ethical standards for human, animal, or environmental sampling explicitly documented.</li>
+            <li><span class="check-icon">&#10003;</span> <strong>References Formatted:</strong> Numbered Vancouver style citations cross-referenced with text brackets.</li>
+          </ul>
+        </div>
+
+        <div style="background-color: var(--color-bg-subtle); border: 1px solid var(--color-border-medium); padding: 1.5rem; text-align: center; margin-top: 2rem;">
+          <h4 style="font-family: var(--font-serif); font-size: 1.25rem; color: var(--color-primary); margin-bottom: 0.5rem;">Ready to Submit Your Manuscript?</h4>
+          <p style="font-size: 0.9rem; color: var(--color-text-muted); max-width: 600px; margin: 0 auto 1.25rem;">
+            For Volume 1 (2026) submissions or editorial inquiries, manuscripts may be transmitted directly to the Founding Editor-in-Chief.
+          </p>
+          <a href="mailto:editor@metaresistome.org" class="btn-academic btn-academic-primary">Email Manuscript to Editorial Office</a>
+        </div>
+      </section>
+
     </main>
   </div>
 
