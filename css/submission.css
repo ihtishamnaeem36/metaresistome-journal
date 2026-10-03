@@ -264,66 +264,164 @@ body.submission-body {
 }
 
 /* ═══════════════════════════════════════════
-   STEP 1: ARTICLE TYPE SELECTION
+   STEP 1: ARTICLE TYPE SELECTION (Minimal List Design)
    ═══════════════════════════════════════════ */
-.article-types-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.25rem;
+.article-types-list {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--em-border);
+  border-radius: 4px;
+  background-color: #FFF;
+  overflow: hidden;
   margin-bottom: 2rem;
 }
 
-.article-type-card {
-  border: 2px solid var(--em-border);
-  border-radius: 4px;
-  padding: 1.25rem;
+.article-type-row {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0.95rem 1.25rem;
+  border-bottom: 1px solid #EAEDED;
   cursor: pointer;
-  background-color: #FFF;
-  transition: all 0.2s ease;
-  position: relative;
+  transition: background-color 0.15s ease, border-left-color 0.15s ease;
+  border-left: 4px solid transparent;
 }
 
-.article-type-card:hover {
-  border-color: var(--em-teal);
-  box-shadow: var(--shadow-sm);
-  transform: translateY(-2px);
+.article-type-row:last-child {
+  border-bottom: none;
 }
 
-.article-type-card.selected {
-  border-color: var(--em-teal);
-  background-color: #F0F8FF;
-  box-shadow: 0 0 0 1px var(--em-teal);
+.article-type-row:hover {
+  background-color: #F8FBFD;
 }
 
-.article-type-card input[type="radio"] {
-  position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
+.article-type-row.selected {
+  background-color: #EBF5FB;
+  border-left-color: var(--em-teal);
+}
+
+.article-type-row input[type="radio"] {
   width: 18px;
   height: 18px;
   accent-color: var(--em-teal);
   cursor: pointer;
+  flex-shrink: 0;
 }
 
-.article-type-card h3 {
-  font-size: 1.05rem;
+.article-type-info {
+  flex-grow: 1;
+}
+
+.article-type-title {
+  font-size: 0.95rem;
+  font-weight: 700;
   color: var(--em-navy);
-  margin-bottom: 0.35rem;
-  padding-right: 1.75rem;
+  margin-bottom: 0.15rem;
 }
 
-.article-type-card p {
-  font-size: 0.85rem;
+.article-type-desc {
+  font-size: 0.825rem;
   color: var(--em-muted);
-  margin-bottom: 0.65rem;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
-.article-type-meta {
+.article-type-badge {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  color: var(--em-teal);
+  background-color: #E8F4F8;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Autocomplete & Reorder Buttons */
+.btn-reorder-files {
+  background-color: #FFF;
+  border: 1px solid var(--em-teal);
+  color: var(--em-teal);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.4rem 0.85rem;
+  border-radius: 3px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.15s;
+}
+
+.btn-reorder-files:hover {
+  background-color: #EBF5FB;
+}
+
+.institution-search-wrap {
+  position: relative;
+}
+
+.institution-results-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 220px;
+  overflow-y: auto;
+  background-color: #FFF;
+  border: 1px solid var(--em-teal);
+  border-radius: 0 0 4px 4px;
+  box-shadow: var(--shadow-md);
+  z-index: 1000;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.institution-results-dropdown.is-open {
+  display: block;
+}
+
+.institution-result-item {
+  padding: 0.6rem 0.85rem;
+  font-size: 0.825rem;
+  cursor: pointer;
+  border-bottom: 1px solid #EAEDED;
   display: flex;
-  gap: 0.6rem;
-  font-size: 0.775rem;
-  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.institution-result-item:hover {
+  background-color: #EBF5FB;
+  color: var(--em-teal);
+}
+
+.institution-add-custom-btn {
+  padding: 0.6rem 0.85rem;
+  font-size: 0.825rem;
+  color: var(--em-teal);
+  font-weight: 700;
+  background-color: #F8FBFD;
+  cursor: pointer;
+  border-top: 1px dashed var(--em-teal);
+}
+
+.institution-add-custom-btn:hover {
+  background-color: #EBF5FB;
+}
+
+.extracted-notice-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background-color: #D5F5E3;
+  color: #1E8449;
+  border: 1px solid #A9DFBF;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-bottom: 0.4rem;
 }
 
 .meta-pill {

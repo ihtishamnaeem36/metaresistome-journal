@@ -6,7 +6,7 @@ An independent, peer-reviewed Diamond Open Access scholarly journal platform bui
 
 ---
 
-## 🏛️ Core Principles & Architecture
+##  Core Principles & Architecture
 
 1. **Independent Scholarly Identity:** Designed strictly as an authoritative academic publication with restrained typography (`Source Serif 4` + `Inter`), high-contrast hierarchy, and no startup/marketing fluff.
 2. **Every Button & Link Works:** Zero dead links, zero 404s, and zero "coming soon" placeholders.
@@ -19,7 +19,7 @@ An independent, peer-reviewed Diamond Open Access scholarly journal platform bui
 
 ---
 
-## ⚙️ How to Enable Impact Factor, CiteScore & Indexing Badges (Zero Code Change Required)
+##  How to Enable Impact Factor, CiteScore & Indexing Badges (Zero Code Change Required)
 
 The journal platform includes a **strict feature-flag system** in `js/journal-config.js`.
 
@@ -51,7 +51,7 @@ const JOURNAL_SETTINGS = {
 
 ---
 
-## 📁 Repository Structure
+##  Repository Structure
 
 ```
 ├── index.html              # Main journal homepage (masthead, CFP, previews, footer)
@@ -76,7 +76,7 @@ const JOURNAL_SETTINGS = {
 
 ---
 
-## 🚀 Local Development & Preview
+##  Local Development & Preview
 
 To preview the website locally on any machine:
 1. Open PowerShell or Terminal in this folder.
@@ -88,7 +88,7 @@ To preview the website locally on any machine:
 
 ---
 
-## 🌐 Deploying to GitHub Pages & Custom Domain (Porkbun)
+##  Deploying to GitHub Pages & Custom Domain (Porkbun)
 
 1. **Push to GitHub:**
    ```bash

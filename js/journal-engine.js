@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
  * 1. FEATURE FLAGS & METRIC CONTROLS
  * Rules from instruction:
  * - A metric/badge/button renders ONLY if non-null and non-empty.
- * - When null, the slot is NOT rendered at all — no empty box, no placeholder.
+ * - When null, the slot is NOT rendered at all  -  no empty box, no placeholder.
  */
 function initFeatureFlags() {
   if (typeof JOURNAL_SETTINGS === 'undefined') return;

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editorial Office Portal | Journal of MetaResistome</title>
+  <meta name="description" content="Editorial Office Management Portal for Journal of MetaResistome. Review submitted manuscripts and download submission packages.">
+  <link rel="icon" type="image/png" href="manus-storage/metaresistome-atlas-mark_5e6d294d.png">
+  <link rel="stylesheet" href="css/journal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <style>
+    .editor-body {
+      background-color: #F4F6F9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: #1C2833;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .editor-header {
+      background-color: #002B49;
+      color: #FFF;
+      border-bottom: 3px solid #007398;
+      padding: 0.85rem 1.5rem;
+    }
+    .editor-header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .editor-container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      flex-grow: 1;
+    }
+    .login-card {
+      max-width: 420px;
+      margin: 4rem auto;
+      background: #FFF;
+      border: 1px solid #D1D9E2;
+      border-radius: 4px;
+      box-shadow: 0 8px 24px rgba(0, 43, 73, 0.12);
+      padding: 2.5rem;
+      text-align: center;
+    }
+    .dashboard-view {
+      display: none;
+    }
+    .metrics-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .metric-card {
+      background: #FFF;
+      border: 1px solid #D1D9E2;
+      border-radius: 4px;
+      padding: 1.25rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .metric-num {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #002B49;
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .metric-label {
+      font-size: 0.825rem;
+      color: #566573;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .submissions-table-card {
+      background: #FFF;
+      border: 1px solid #D1D9E2;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0, 43, 73, 0.08);
+      overflow: hidden;
+    }
+    .table-toolbar {
+      padding: 1rem 1.25rem;
+      background: #EAEDED;
+      border-bottom: 1px solid #D1D9E2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .toolbar-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #002B49;
+    }
+    .search-box {
+      padding: 0.45rem 0.75rem;
+      font-size: 0.85rem;
+      border: 1px solid #BDC3C7;
+      border-radius: 3px;
+      width: 250px;
+    }
+    .manuscript-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    .manuscript-table th {
+      background: #F8F9F9;
+      text-align: left;
+      padding: 0.75rem 1rem;
+      font-weight: 700;
+      color: #002B49;
+      border-bottom: 1px solid #D1D9E2;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+    }
+    .manuscript-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid #EAEDED;
+      vertical-align: middle;
+    }
+    .manuscript-table tr:hover {
+      background: #F8FBFD;
+    }
+    .btn-action-download {
+      background-color: #007398;
+      color: #FFF;
+      border: none;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.775rem;
+      font-weight: 700;
+      border-radius: 2px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: background-color 0.15s;
+    }
+    .btn-action-download:hover {
+      background-color: #005A77;
+    }
+    .btn-action-view {
+      background: #FFF;
+      border: 1px solid #BDC3C7;
+      color: #002B49;
+      padding: 0.35rem 0.65rem;
+      font-size: 0.775rem;
+      font-weight: 600;
+      border-radius: 2px;
+      cursor: pointer;
+      margin-left: 0.35rem;
+    }
+    .btn-action-view:hover {
+      background: #EAEDED;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 2px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .badge-submitted { background: #EBF5FB; color: #1B4F72; }
+    .badge-triage { background: #FEF9E7; color: #7D6608; }
+    .badge-accepted { background: #D5F5E3; color: #196F3D; }
+
+    /* Modal */
+    .details-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 43, 73, 0.6);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .details-modal.is-open {
+      display: flex;
+    }
+    .details-modal-content {
+      background: #FFF;
+      max-width: 800px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      border-radius: 4px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body class="editor-body">
+
+  <header class="editor-header">
+    <div class="editor-header-inner">
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <img src="manus-storage/metaresistome-atlas-mark_5e6d294d.png" alt="Logo" style="width: 32px; height: 32px; background: #FFF; padding: 2px; border-radius: 3px;">
+        <span style="font-weight: 700; font-size: 1.1rem; letter-spacing: -0.01em;">Journal of MetaResistome - Editorial Intake</span>
+      </div>
+      <div>
+        <a href="index.html" style="color: #EBF5FB; font-size: 0.825rem; text-decoration: none;">Exit to Journal</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="editor-container">
+
+    <!-- LOGIN SCREEN -->
+    <div class="login-card" id="editor-login-card">
+      <h3 style="font-size: 1.25rem; color: #002B49; margin-bottom: 0.5rem;">Editorial Office Sign-In</h3>
+      <p style="font-size: 0.85rem; color: #566573; margin-bottom: 1.5rem;">Enter the editorial access passcode to view incoming manuscript submissions.</p>
+      
+      <form id="editor-login-form">
+        <div style="margin-bottom: 1rem; text-align: left;">
+          <label style="font-size: 0.8rem; font-weight: 700; color: #002B49; display: block; margin-bottom: 0.35rem;">Access Passcode</label>
+          <input type="password" id="editor-passcode" class="form-control" placeholder="Enter editorial passcode" style="width: 100%; padding: 0.65rem; border: 1px solid #D1D9E2; border-radius: 3px;" required autofocus>
+          <span style="font-size: 0.75rem; color: #566573; margin-top: 0.25rem; display: block;">Default Editorial Passcode: <code>jmr2026</code></span>
+        </div>
+        <button type="submit" class="btn-academic btn-academic-primary" style="width: 100%; padding: 0.65rem; background: #007398; border: none; color: #FFF; font-weight: 700; border-radius: 3px; cursor: pointer;">
+          Unlock Submissions Dashboard
+        </button>
+      </form>
+    </div>
+
+    <!-- DASHBOARD VIEW -->
+    <div class="dashboard-view" id="editor-dashboard-view">
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h2 style="font-size: 1.5rem; color: #002B49; margin: 0;">Editorial Submissions Intake</h2>
+          <p style="font-size: 0.85rem; color: #566573; margin: 0.25rem 0 0 0;">Managing incoming submissions for Founding Editor Dr. Shafiq.</p>
+        </div>
+        <div>
+          <button type="button" id="btn-refresh-data" class="btn-action-view" style="padding: 0.5rem 1rem;">Refresh Submissions</button>
+          <button type="button" id="btn-logout" class="btn-action-view" style="padding: 0.5rem 1rem;">Sign Out</button>
+        </div>
+      </div>
+
+      <!-- Metrics -->
+      <div class="metrics-row">
+        <div class="metric-card">
+          <div class="metric-num" id="metric-total">0</div>
+          <div class="metric-label">Total Submissions</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num" id="metric-triage">0</div>
+          <div class="metric-label">In Initial Triage</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num" id="metric-review">0</div>
+          <div class="metric-label">In Peer Review</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num" id="metric-packages">0</div>
+          <div class="metric-label">Downloaded Packages</div>
+        </div>
+      </div>
+
+      <!-- Submissions Table Card -->
+      <div class="submissions-table-card">
+        <div class="table-toolbar">
+          <div class="toolbar-title">Active Submissions Queue</div>
+          <input type="search" class="search-box" id="table-search" placeholder="Search ID, title, or author...">
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table class="manuscript-table">
+            <thead>
+              <tr>
+                <th style="width: 14%;">Tracking ID</th>
+                <th style="width: 12%;">Date</th>
+                <th style="width: 32%;">Manuscript Title</th>
+                <th style="width: 16%;">Corresponding Author</th>
+                <th style="width: 12%;">Article Type</th>
+                <th style="width: 14%; text-align: right;">Action</th>
+              </tr>
+            </thead>
+            <tbody id="manuscripts-tbody">
+              <!-- Dynamically rendered -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- DETAILS MODAL -->
+    <div class="details-modal" id="details-modal">
+      <div class="details-modal-content">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; border-bottom: 1px solid #EAEDED; padding-bottom: 0.75rem;">
+          <div>
+            <span style="font-size: 0.775rem; color: #007398; font-weight: 700;" id="modal-track-id"></span>
+            <h3 style="font-size: 1.2rem; color: #002B49; margin: 0.25rem 0 0 0;" id="modal-title"></h3>
+          </div>
+          <button type="button" id="modal-close-btn" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #566573;">&times;</button>
+        </div>
+
+        <div id="modal-body-content" style="font-size: 0.875rem; line-height: 1.6;">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer style="background: #FFF; border-top: 1px solid #D1D9E2; padding: 1.25rem; text-align: center; font-size: 0.8rem; color: #566573; margin-top: auto;">
+    &copy; 2026 Journal of MetaResistome &bull; Editorial Office Management System
+  </footer>
+
+  <script>
+    (function() {
+      const PASSCODE = 'jmr2026';
+      let submissionsList = [];
+
+      const loginCard = document.getElementById('editor-login-card');
+      const dashboardView = document.getElementById('editor-dashboard-view');
+      const loginForm = document.getElementById('editor-login-form');
+      const passInput = document.getElementById('editor-passcode');
+      const tbody = document.getElementById('manuscripts-tbody');
+      const searchInput = document.getElementById('table-search');
+      const refreshBtn = document.getElementById('btn-refresh-data');
+      const logoutBtn = document.getElementById('btn-logout');
+
+      const modal = document.getElementById('details-modal');
+      const modalClose = document.getElementById('modal-close-btn');
+
+      // Check existing session
+      if (sessionStorage.getItem('jmr_editor_auth') === 'true') {
+        showDashboard();
+      }
+
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (passInput.value.trim() === PASSCODE) {
+          sessionStorage.setItem('jmr_editor_auth', 'true');
+          showDashboard();
+        } else {
+          alert('Invalid editorial passcode. Please try again.');
+          passInput.focus();
+        }
+      });
+
+      logoutBtn.addEventListener('click', () => {
+        sessionStorage.removeItem('jmr_editor_auth');
+        dashboardView.style.display = 'none';
+        loginCard.style.display = 'block';
+        passInput.value = '';
+      });
+
+      refreshBtn.addEventListener('click', () => {
+        loadSubmissions();
+      });
+
+      if (modalClose) {
+        modalClose.addEventListener('click', () => modal.classList.remove('is-open'));
+      }
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.remove('is-open');
+      });
+
+      function showDashboard() {
+        loginCard.style.display = 'none';
+        dashboardView.style.display = 'block';
+        loadSubmissions();
+      }
+
+      function loadSubmissions() {
+        try {
+          const raw = localStorage.getItem('jmr_editor_submissions');
+          submissionsList = raw ? JSON.parse(raw) : [];
+        } catch (e) {
+          submissionsList = [];
+        }
+
+        updateMetrics();
+        renderTable(submissionsList);
+      }
+
+      function updateMetrics() {
+        document.getElementById('metric-total').textContent = submissionsList.length;
+        document.getElementById('metric-triage').textContent = submissionsList.length;
+        document.getElementById('metric-review').textContent = 0;
+        document.getElementById('metric-packages').textContent = submissionsList.length;
+      }
+
+      function renderTable(list) {
+        if (!tbody) return;
+
+        if (list.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="6" style="text-align: center; padding: 3rem; color: #566573;">
+                No submissions recorded yet. When authors submit manuscripts through <code>submit.html</code>, they will appear here automatically.
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = list.map((item, index) => {
+          const dateStr = item.submissionTimestamp ? new Date(item.submissionTimestamp).toLocaleDateString() : 'Recent';
+          const corr = item.correspondingAuthor || (item.authors && item.authors[0]) || { name: 'Unknown', email: '' };
+
+          return `
+            <tr>
+              <td>
+                <strong style="color: #007398;">${escapeHtml(item.trackingId)}</strong>
+              </td>
+              <td style="color: #566573;">${dateStr}</td>
+              <td>
+                <strong>${escapeHtml(item.metadata?.title || 'Untitled Manuscript')}</strong>
+              </td>
+              <td>
+                ${escapeHtml(corr.name || '')}<br>
+                <small style="color: #566573;">${escapeHtml(corr.email || '')}</small>
+              </td>
+              <td>
+                <span class="status-badge badge-submitted">${escapeHtml(item.articleType || 'Article')}</span>
+              </td>
+              <td style="text-align: right;">
+                <button type="button" class="btn-action-download" data-idx="${index}">
+                  Download ZIP
+                </button>
+                <button type="button" class="btn-action-view" data-idx="${index}">
+                  Details
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        tbody.querySelectorAll('.btn-action-download').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const idx = parseInt(btn.getAttribute('data-idx'), 10);
+            downloadPackageZip(submissionsList[idx]);
+          });
+        });
+
+        tbody.querySelectorAll('.btn-action-view').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const idx = parseInt(btn.getAttribute('data-idx'), 10);
+            showManuscriptDetails(submissionsList[idx]);
+          });
+        });
+      }
+
+      searchInput.addEventListener('input', () => {
+        const q = searchInput.value.trim().toLowerCase();
+        if (!q) {
+          renderTable(submissionsList);
+          return;
+        }
+        const filtered = submissionsList.filter(item => {
+          return (item.trackingId && item.trackingId.toLowerCase().includes(q)) ||
+                 (item.metadata?.title && item.metadata.title.toLowerCase().includes(q)) ||
+                 (item.correspondingAuthor?.name && item.correspondingAuthor.name.toLowerCase().includes(q));
+        });
+        renderTable(filtered);
+      });
+
+      function showManuscriptDetails(item) {
+        document.getElementById('modal-track-id').textContent = item.trackingId;
+        document.getElementById('modal-title').textContent = item.metadata?.title || 'Untitled';
+
+        const content = document.getElementById('modal-body-content');
+        const filesCount = item.filesManifest ? item.filesManifest.length : 0;
+        const authorsHtml = item.authors ? item.authors.map(a => {
+          const name = [a.prefix, a.firstName, a.middleName, a.familyName].filter(Boolean).join(' ');
+          return `<li>${escapeHtml(name)} - ${escapeHtml(a.institution || '')} (<em>${escapeHtml(a.email || '')}</em>) ${a.isCorresponding ? '<strong>[Corresponding]</strong>' : ''}</li>`;
+        }).join('') : 'None listed';
+
+        content.innerHTML = `
+          <div style="margin-bottom: 1rem;">
+            <strong>Article Type:</strong> ${escapeHtml(item.articleType)} &bull; 
+            <strong>Publishing Model:</strong> ${escapeHtml(item.publishingModel || 'Hybrid')}
+          </div>
+
+          <div style="margin-bottom: 1rem;">
+            <h4 style="margin: 0 0 0.35rem 0; color: #002B49;">Authors</h4>
+            <ul style="margin: 0 0 0 1.25rem;">${authorsHtml}</ul>
+          </div>
+
+          <div style="margin-bottom: 1rem;">
+            <h4 style="margin: 0 0 0.35rem 0; color: #002B49;">Abstract</h4>
+            <p style="background: #F8F9F9; padding: 0.85rem; border: 1px solid #EAEDED; border-radius: 3px; font-size: 0.825rem;">
+              ${escapeHtml(item.metadata?.abstract || 'No abstract provided.')}
+            </p>
+          </div>
+
+          <div style="margin-bottom: 1rem;">
+            <h4 style="margin: 0 0 0.35rem 0; color: #002B49;">Declarations</h4>
+            <p><strong>Prior Publication:</strong> ${escapeHtml(item.metadata?.priorSubmission || 'No')}</p>
+            <p><strong>Competing Interests:</strong> ${escapeHtml(item.metadata?.coi || 'No')}</p>
+            <p><strong>Data Statement:</strong> ${escapeHtml(item.metadata?.dataAvailability || 'Deposition indicated')}</p>
+          </div>
+
+          <div>
+            <h4 style="margin: 0 0 0.35rem 0; color: #002B49;">Attached Files (${filesCount})</h4>
+            <ul style="margin: 0 0 0 1.25rem;">
+              ${item.filesManifest ? item.filesManifest.map(f => `<li>[${f.itemType}] ${escapeHtml(f.name)} (${f.size} bytes)</li>`).join('') : 'None'}
+            </ul>
+          </div>
+        `;
+
+        modal.classList.add('is-open');
+      }
+
+      async function downloadPackageZip(item) {
+        if (typeof JSZip === 'undefined') {
+          alert('JSZip library loading. Please try again.');
+          return;
+        }
+        const zip = new JSZip();
+        zip.file(`SUBMISSION_MANIFEST_${item.trackingId}.json`, JSON.stringify(item, null, 2));
+
+        const receipt = `===============================================================
+JOURNAL OF METARESISTOME - EDITORIAL INTAKE RECEIPT
+Tracking ID: ${item.trackingId}
+Date: ${item.submissionTimestamp}
+Title: ${item.metadata?.title}
+Article Type: ${item.articleType}
+Corresponding Author: ${item.correspondingAuthor?.name} (${item.correspondingAuthor?.email})
+===============================================================`;
+        zip.file(`MANIFEST_RECEIPT_${item.trackingId}.txt`, receipt);
+
+        const content = await zip.generateAsync({ type: 'blob' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(content);
+        a.download = `JMR_Package_${item.trackingId}.zip`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+
+      function escapeHtml(str) {
+        if (!str) return '';
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+    })();
+  </script>
+</body>
+</html>

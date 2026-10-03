@@ -4,16 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Submit Your Article | Journal of MetaResistome</title>
-  <meta name="description" content="Editorial Submission System for Journal of MetaResistome (JMR). Submit original pathogen genomics and metagenomics manuscripts.">
+  <meta name="description" content="Editorial Submission System for Journal of MetaResistome. Submit original pathogen genomics and metagenomics manuscripts.">
   <link rel="icon" type="image/png" href="manus-storage/metaresistome-atlas-mark_5e6d294d.png">
   <link rel="stylesheet" href="css/submission.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
 <body class="submission-body">
 
-  <!-- ═══════════════════════════════════════════
+  <!-- ===========================================
        EDITORIAL SUBMISSION HEADER
-       ═══════════════════════════════════════════ -->
+       =========================================== -->
   <header class="submission-header">
     <div class="sub-header-inner">
       <a href="index.html" class="sub-brand" title="Return to Journal of MetaResistome Home">
@@ -29,18 +29,17 @@
 
       <div class="sub-header-actions">
         <a href="guide-for-authors.html" target="_blank" class="sub-header-link">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-          Guide for Authors ↗
+          Guide for Authors [External]
         </a>
-        <a href="aims-and-scope.html" target="_blank" class="sub-header-link">Aims & Scope ↗</a>
-        <a href="index.html" class="sub-header-link" style="font-weight: 700;">&larr; Exit to Journal</a>
+        <a href="aims-and-scope.html" target="_blank" class="sub-header-link">Aims and Scope</a>
+        <a href="index.html" class="sub-header-link" style="font-weight: 700;">Exit to Journal</a>
       </div>
     </div>
   </header>
 
-  <!-- ═══════════════════════════════════════════
+  <!-- ===========================================
        STEP PROGRESS BAR
-       ═══════════════════════════════════════════ -->
+       =========================================== -->
   <nav class="submission-progress-bar" aria-label="Submission Progress">
     <div class="progress-inner">
       <div class="step-node active" data-step="1">
@@ -57,126 +56,116 @@
 
       <div class="step-node" data-step="3">
         <div class="node-number">3</div>
-        <span>Details & Declarations</span>
+        <span>Details and Declarations</span>
       </div>
       <div class="step-connector"></div>
 
       <div class="step-node" data-step="4">
         <div class="node-number">4</div>
-        <span>Review & Model</span>
+        <span>Review and Model</span>
       </div>
     </div>
   </nav>
 
-  <!-- ═══════════════════════════════════════════
+  <!-- ===========================================
        MAIN SUBMISSION WIZARD CONTAINER
-       ═══════════════════════════════════════════ -->
+       =========================================== -->
   <main class="submission-main">
 
-    <!-- ─────────────────────────────────────────
-         STEP 1: SELECT ARTICLE TYPE
-         ───────────────────────────────────────── -->
+    <!-- -----------------------------------------
+         STEP 1: SELECT ARTICLE TYPE (Minimal List Design)
+         ----------------------------------------- -->
     <section class="submission-step-card active" id="step-card-1">
       <div class="step-header">
         <h2>1. Select Article Type</h2>
-        <p>Please select the category that best describes your manuscript. Required files and peer review criteria are customized according to your article type.</p>
+        <p>Select the category that best describes your manuscript from the list below.</p>
       </div>
 
-      <div class="article-types-grid">
+      <div class="article-types-list">
         <!-- Original Research -->
-        <div class="article-type-card selected" data-type="original-research">
-          <input type="radio" name="article-type-radio" checked aria-label="Original Research Article">
-          <h3>Original Research Article</h3>
-          <p>Full-length empirical investigations on pathogen genomics, antimicrobial resistance epidemiology, wastewater metagenomic surveillance, and resistance biology.</p>
-          <div class="article-type-meta">
-            <span class="meta-pill">5,000–8,000 words</span>
-            <span class="meta-pill">Double-Blind Review</span>
-            <span class="meta-pill">Raw Data Deposition Required</span>
+        <label class="article-type-row selected" data-type="original-research">
+          <input type="radio" name="article-type-radio" checked aria-label="Original Research">
+          <div class="article-type-info">
+            <div class="article-type-title">Original Research</div>
+            <div class="article-type-desc">Full-length empirical investigations on pathogen genomics, antimicrobial resistance epidemiology, wastewater metagenomic surveillance, and resistance biology.</div>
           </div>
-        </div>
+          <span class="article-type-badge">5,000 - 8,000 words</span>
+        </label>
 
-        <!-- Review Article -->
-        <div class="article-type-card" data-type="review-article">
-          <input type="radio" name="article-type-radio" aria-label="Review Article">
-          <h3>Review Article</h3>
-          <p>Comprehensive, authoritative critical evaluations of key topics, emerging AMR mechanisms, global surveillance frameworks, or sequencing methodologies.</p>
-          <div class="article-type-meta">
-            <span class="meta-pill">6,000–10,000 words</span>
-            <span class="meta-pill">Peer Reviewed</span>
-            <span class="meta-pill">Extensive Bibliography</span>
+        <!-- Review -->
+        <label class="article-type-row" data-type="review">
+          <input type="radio" name="article-type-radio" aria-label="Review">
+          <div class="article-type-info">
+            <div class="article-type-title">Review</div>
+            <div class="article-type-desc">Authoritative, comprehensive syntheses of emerging topics in antimicrobial resistance, pathogen surveillance, or microbial genomics.</div>
           </div>
-        </div>
+          <span class="article-type-badge">6,000 - 10,000 words</span>
+        </label>
 
         <!-- Short Communication -->
-        <div class="article-type-card" data-type="short-communication">
+        <label class="article-type-row" data-type="short-communication">
           <input type="radio" name="article-type-radio" aria-label="Short Communication">
-          <h3>Short Communication / Rapid Report</h3>
-          <p>Concise, urgent novel findings, outbreak alerts, first reports of high-threat resistance genes (e.g. novel carbapenemases or colistin resistance).</p>
-          <div class="article-type-meta">
-            <span class="meta-pill">2,500 words max</span>
-            <span class="meta-pill">Fast-Track Triage (14 days)</span>
-            <span class="meta-pill">Max 3 Figures/Tables</span>
+          <div class="article-type-info">
+            <div class="article-type-title">Short Communication</div>
+            <div class="article-type-desc">Concise novel findings, outbreak alerts, or first reports of high-threat resistance genes requiring expedited publication.</div>
           </div>
-        </div>
+          <span class="article-type-badge">2,500 words max</span>
+        </label>
 
-        <!-- Metagenomic Dataset Note -->
-        <div class="article-type-card" data-type="dataset-note">
-          <input type="radio" name="article-type-radio" aria-label="Metagenomic Dataset & Resource Note">
-          <h3>Metagenomic Dataset & Resource Note</h3>
-          <p>Descriptions of open-access genomic datasets, wastewater baseline profiles, curated bioinformatics pipelines, or antimicrobial resistance databases.</p>
-          <div class="article-type-meta">
-            <span class="meta-pill">3,000 words max</span>
-            <span class="meta-pill">FAIR Data Audit</span>
-            <span class="meta-pill">Public Accession Mandatory</span>
+        <!-- Dataset Note -->
+        <label class="article-type-row" data-type="dataset-note">
+          <input type="radio" name="article-type-radio" aria-label="Dataset Note">
+          <div class="article-type-info">
+            <div class="article-type-title">Dataset Note</div>
+            <div class="article-type-desc">Descriptions of open-access genomic datasets, wastewater baseline profiles, curated bioinformatics pipelines, or antimicrobial resistance databases.</div>
           </div>
-        </div>
+          <span class="article-type-badge">3,000 words max</span>
+        </label>
 
-        <!-- Method & Protocol -->
-        <div class="article-type-card" data-type="protocol-method">
-          <input type="radio" name="article-type-radio" aria-label="Method & Bioinformatics Protocol">
-          <h3>Method & Bioinformatics Protocol</h3>
-          <p>Detailed, reproducible protocols for sample preparation, targeted enrichment, sequencing workflows, or benchmarking computational tools in metagenomics.</p>
-          <div class="article-type-meta">
-            <span class="meta-pill">4,000 words max</span>
-            <span class="meta-pill">Code Repository Required</span>
+        <!-- Method -->
+        <label class="article-type-row" data-type="method">
+          <input type="radio" name="article-type-radio" aria-label="Method">
+          <div class="article-type-info">
+            <div class="article-type-title">Method</div>
+            <div class="article-type-desc">Detailed, reproducible protocols for sample preparation, targeted enrichment, sequencing workflows, or benchmarking computational tools in metagenomics.</div>
           </div>
-        </div>
+          <span class="article-type-badge">4,000 words max</span>
+        </label>
 
-        <!-- Perspective / Commentary -->
-        <div class="article-type-card" data-type="perspective">
-          <input type="radio" name="article-type-radio" aria-label="Perspective & Policy Commentary">
-          <h3>Perspective & Policy Commentary</h3>
-          <p>Thoughtful perspectives on One Health surveillance policy, ethical genomics, stewardship interventions, or global health governance.</p>
-          <div class="article-type-meta">
-            <span class="meta-pill">2,000 words max</span>
-            <span class="meta-pill">Editorial Review</span>
+        <!-- Perspective -->
+        <label class="article-type-row" data-type="perspective">
+          <input type="radio" name="article-type-radio" aria-label="Perspective">
+          <div class="article-type-info">
+            <div class="article-type-title">Perspective</div>
+            <div class="article-type-desc">Expert opinions on One Health surveillance policy, ethical genomics, stewardship interventions, or global health governance.</div>
           </div>
-        </div>
+          <span class="article-type-badge">2,000 words max</span>
+        </label>
       </div>
 
       <div class="step-navigation-footer">
         <div></div>
         <button type="button" class="btn-em-next" id="btn-next-step-1">
-          Next: Attach Files &rarr;
+          Next
         </button>
       </div>
     </section>
 
-    <!-- ─────────────────────────────────────────
+    <!-- -----------------------------------------
          STEP 2: ATTACH FILES (Complex Upload Window)
-         ───────────────────────────────────────── -->
+         ----------------------------------------- -->
     <section class="submission-step-card" id="step-card-2">
       <div class="step-header">
         <h2>2. Attach Files</h2>
-        <p>Upload all components of your manuscript. You must select the appropriate <strong>Item Type</strong> for each file before attaching. Both a <strong>Cover Letter</strong> and <strong>Manuscript File</strong> are mandatory to proceed.</p>
+        <p>Upload all components of your manuscript. Select the appropriate Item Type for each file before attaching. Both Cover Letter and Manuscript File are required.</p>
       </div>
 
       <div class="upload-instructions-box">
-        <strong>📌 Guide for Authors Attachment Rules:</strong>
+        <strong>Guide for Authors File Attachment Rules:</strong>
         <ul>
-          <li><strong>Single-File Items:</strong> Categories such as <em>Cover Letter</em>, <em>Manuscript File</em>, and <em>Graphical Abstract</em> permit only <strong>one</strong> file. If you need to replace an existing single-file item, remove the previous file using the red <strong>&times; Remove</strong> button in the table below before re-uploading.</li>
-          <li><strong>Multi-File Items:</strong> Categories such as <em>Figures</em>, <em>Tables</em>, and <em>Supplementary Material</em> allow multiple files to be uploaded consecutively.</li>
-          <li><strong>File Formats:</strong> Manuscripts in <code>.docx</code>, <code>.pdf</code>, or <code>.odt</code>. Figures in high-resolution <code>.png</code>, <code>.jpg</code>, <code>.tif</code>, or <code>.eps</code>.</li>
+          <li><strong>Single-File Categories:</strong> Categories such as Cover Letter, Manuscript File, and Graphical Abstract accept only one file. To replace an existing single-file item, remove the previous file using the Remove button in the table below before uploading a new version.</li>
+          <li><strong>Multi-File Categories:</strong> Categories such as Figures, Tables, and Supplementary Material allow multiple files to be uploaded consecutively.</li>
+          <li><strong>Formats:</strong> Manuscripts in .docx, .pdf, or .odt. Figures in high-resolution .png, .jpg, .tif, or .eps. Supplementary files in .pdf, .xlsx, .zip, or .fasta.</li>
         </ul>
       </div>
 
@@ -191,20 +180,20 @@
         <div class="item-selector-group">
           <label for="item-type-select">Select Item Type to Upload:</label>
           <select id="item-type-select" class="item-type-select" aria-label="Select item type">
-            <option value="cover_letter">Cover Letter (Mandatory - Single)</option>
-            <option value="manuscript">Manuscript File (Mandatory - Single)</option>
-            <option value="title_page">Title Page (Optional - Single)</option>
+            <option value="cover_letter">Cover Letter (Required - Single File)</option>
+            <option value="manuscript">Manuscript File (Required - Single File)</option>
+            <option value="title_page">Title Page (Optional - Single File)</option>
             <option value="figure">Figure (Multiple files allowed)</option>
             <option value="table">Table (Multiple files allowed)</option>
-            <option value="supplementary">Supplementary Material (Multiple allowed)</option>
-            <option value="graphical_abstract">Graphical Abstract (Single)</option>
+            <option value="supplementary">Supplementary Material (Multiple files allowed)</option>
+            <option value="graphical_abstract">Graphical Abstract (Single File)</option>
           </select>
           <div class="item-helper-text" id="item-helper-text">
             Confidential letter to Editor-in-Chief highlighting originality, significance, and ethical compliance. (Single file category)
           </div>
         </div>
 
-        <!-- Drag & Drop Zone -->
+        <!-- Drag and Drop Zone -->
         <div>
           <div class="dropzone-area" id="dropzone-area">
             <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -212,7 +201,7 @@
               <polyline points="17 8 12 3 7 8"></polyline>
               <line x1="12" y1="3" x2="12" y2="15"></line>
             </svg>
-            <div class="dropzone-title">Drag & drop your file here</div>
+            <div class="dropzone-title">Drag and drop your file here</div>
             <div class="dropzone-subtitle">or choose from your computer</div>
             <label for="file-upload-input" class="dropzone-browse-btn">Browse Computer</label>
             <input type="file" id="file-upload-input" style="display: none;" multiple>
@@ -223,10 +212,10 @@
       <!-- Mandatory Progress Checklist -->
       <div class="mandatory-checklist">
         <div class="check-item invalid" id="check-item-cover">
-          ✗ Cover Letter (Required)
+          Cover Letter: Required
         </div>
         <div class="check-item invalid" id="check-item-manuscript">
-          ✗ Manuscript File (Required)
+          Manuscript File: Required
         </div>
         <div style="font-size: 0.8rem; color: var(--em-muted); margin-left: auto;">
           Both required items must be attached before proceeding.
@@ -237,7 +226,12 @@
       <div class="files-table-container" id="files-table-container" style="display: none;">
         <div class="files-table-header">
           <h4>Attached Manuscript Components</h4>
-          <span class="file-status-summary" id="files-count-summary">0 files attached</span>
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <button type="button" class="btn-reorder-files" id="btn-reorder-files" title="Auto-sort files to journal standard order">
+              Reorder Files (Standard Sequence)
+            </button>
+            <span class="file-status-summary" id="files-count-summary">0 files attached</span>
+          </div>
         </div>
         <table class="em-files-table">
           <thead>
@@ -256,52 +250,57 @@
       </div>
 
       <div class="empty-files-placeholder" id="empty-files-placeholder">
-        No files attached yet. Please select an Item Type above and upload your files.
+        No files attached yet. Select an Item Type above and upload your files.
       </div>
 
       <div class="step-navigation-footer">
-        <button type="button" class="btn-em-prev">&larr; Back: Article Type</button>
-        <button type="button" class="btn-em-next" id="btn-next-step-2" disabled title="Attach mandatory files to continue">
-          Next: Manuscript Details & Declarations &rarr;
+        <button type="button" class="btn-em-prev">Back</button>
+        <button type="button" class="btn-em-next" id="btn-next-step-2" disabled title="Attach required files to continue">
+          Next
         </button>
       </div>
     </section>
 
-    <!-- ─────────────────────────────────────────
+    <!-- -----------------------------------------
          STEP 3: MANUSCRIPT DETAILS & DECLARATIONS
-         ───────────────────────────────────────── -->
+         ----------------------------------------- -->
     <section class="submission-step-card" id="step-card-3">
       <div class="step-header">
-        <h2>3. Manuscript Details, Declarations & Authors</h2>
-        <p>Provide scholarly metadata and complete mandatory declarations adapted from our <strong>Guide for Authors</strong>.</p>
+        <h2>3. Manuscript Details, Declarations and Authors</h2>
+        <p>Provide scholarly metadata and complete mandatory declarations adapted from our Guide for Authors.</p>
       </div>
 
       <!-- Part A: Manuscript Metadata -->
       <h3 class="form-section-title">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
         A. Manuscript Information
       </h3>
 
+      <div id="extraction-status-banner" style="display: none; margin-bottom: 1rem;">
+        <span class="extracted-notice-pill">
+          Title and Abstract extracted from manuscript file. You can review or edit below.
+        </span>
+      </div>
+
       <div class="form-group">
         <label for="input-title">Full Manuscript Title <span class="req">*</span></label>
-        <input type="text" id="input-title" class="form-control" placeholder="e.g. Wastewater Metagenomic Profiling of Carbapenemase-Producing Enterobacteriaceae across Urban Catchments">
+        <input type="text" id="input-title" class="form-control" placeholder="Enter complete manuscript title">
       </div>
 
       <div class="form-group">
         <label for="input-section">Primary Scientific Section <span class="req">*</span></label>
         <select id="input-section" class="form-control">
-          <option value="AMR Genomics & Resistome Profiling">AMR Genomics & Resistome Profiling</option>
-          <option value="Wastewater & Environmental Metagenomics">Wastewater & Environmental Metagenomics (WBE)</option>
-          <option value="Clinical Pathogen Surveillance & Outbreak Genomics">Clinical Pathogen Surveillance & Outbreak Genomics</option>
-          <option value="One Health Transmission & Zoonotic Resistance">One Health Transmission & Zoonotic Resistance</option>
-          <option value="Bioinformatics, ML & Genomic Epidemiology Tools">Bioinformatics, ML & Genomic Epidemiology Tools</option>
+          <option value="AMR Genomics & Resistome Profiling">AMR Genomics and Resistome Profiling</option>
+          <option value="Wastewater & Environmental Metagenomics">Wastewater and Environmental Metagenomics</option>
+          <option value="Clinical Pathogen Surveillance & Outbreak Genomics">Clinical Pathogen Surveillance and Outbreak Genomics</option>
+          <option value="One Health Transmission & Zoonotic Resistance">One Health Transmission and Zoonotic Resistance</option>
+          <option value="Bioinformatics, ML & Genomic Epidemiology Tools">Bioinformatics, Machine Learning and Genomic Epidemiology Tools</option>
         </select>
       </div>
 
       <div class="form-group">
         <label for="input-abstract">Abstract <span class="req">*</span></label>
-        <textarea id="input-abstract" class="form-control" rows="5" placeholder="Provide a concise summary covering: Background, Methods, Key Findings, and Public Health/Genomic Significance."></textarea>
-        <div class="word-count-note" id="abstract-word-count">0 words (recommended 250 max)</div>
+        <textarea id="input-abstract" class="form-control" rows="5" placeholder="Provide a concise summary covering Background, Methods, Key Findings, and Significance."></textarea>
+        <div class="word-count-note" id="abstract-word-count">0 / 250 words</div>
       </div>
 
       <div class="form-group">
@@ -311,33 +310,32 @@
 
       <!-- Part B: Mandatory Author Declarations -->
       <h3 class="form-section-title">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-        B. Author Declarations & Publication Ethics
+        B. Author Declarations and Ethics
       </h3>
 
       <!-- 1. Prior Publication -->
       <div class="declaration-card">
-        <div class="declaration-title">1. Prior Publication & Redundancy Declaration <span style="color: var(--em-danger);">*</span></div>
+        <div class="declaration-title">1. Prior Publication and Redundancy Declaration <span style="color: var(--em-danger);">*</span></div>
         <div class="declaration-desc">Has this manuscript or any substantial portion of its text, tables, or figures been published previously, or is it currently submitted or under consideration at another peer-reviewed journal?</div>
         <div class="declaration-options">
           <label class="radio-inline">
             <input type="radio" name="prior-submission" value="no" checked>
-            No &mdash; This is an original, unsubmitted work
+            No: This is an original, unsubmitted work
           </label>
           <label class="radio-inline">
             <input type="radio" name="prior-submission" value="yes">
-            Yes (e.g. posted on preprint server bioRxiv/medRxiv)
+            Yes (e.g. posted on preprint server bioRxiv or medRxiv)
           </label>
         </div>
         <div class="conditional-input-box" id="prior-details-box">
-          <input type="text" id="input-prior-details" class="form-control" placeholder="Please provide the preprint server name, DOI, and explanation (e.g. bioRxiv DOI: 10.1101/...)">
+          <input type="text" id="input-prior-details" class="form-control" placeholder="Provide preprint server name and DOI (e.g. bioRxiv DOI: 10.1101/...)">
         </div>
       </div>
 
       <!-- 2. Conflict of Interest -->
       <div class="declaration-card">
-        <div class="declaration-title">2. Conflict of Interest (COI) <span style="color: var(--em-danger);">*</span></div>
-        <div class="declaration-desc">Do any authors have financial, personal, or commercial interests that could inappropriately influence or bias the design, execution, or interpretation of this work?</div>
+        <div class="declaration-title">2. Conflict of Interest <span style="color: var(--em-danger);">*</span></div>
+        <div class="declaration-desc">Do any authors have financial, personal, or commercial relationships that could inappropriately influence or bias this work?</div>
         <div class="declaration-options">
           <label class="radio-inline">
             <input type="radio" name="coi" value="no" checked>
@@ -345,24 +343,24 @@
           </label>
           <label class="radio-inline">
             <input type="radio" name="coi" value="yes">
-            Yes &mdash; Competing interests to declare
+            Yes: Competing interests to declare
           </label>
         </div>
         <div class="conditional-input-box" id="coi-details-box">
-          <textarea id="input-coi-details" class="form-control" rows="2" placeholder="Describe the nature of the competing interest or corporate sponsorship..."></textarea>
+          <textarea id="input-coi-details" class="form-control" rows="2" placeholder="Describe the nature of the competing interest..."></textarea>
         </div>
       </div>
 
       <!-- 3. Funding -->
       <div class="declaration-card">
-        <div class="declaration-title">3. Research Funding & Grant Sponsorship</div>
-        <div class="declaration-desc">List all research grants, institutions, or corporate bodies that funded this research. If none, write "None".</div>
-        <input type="text" id="input-funding" class="form-control" placeholder="e.g. National Science Foundation grant #123456; or None">
+        <div class="declaration-title">3. Research Funding and Grant Sponsorship</div>
+        <div class="declaration-desc">List all research grants, institutions, or corporate bodies that funded this research. If none, write None.</div>
+        <input type="text" id="input-funding" class="form-control" placeholder="e.g. Medical Research Council grant #123456; or None">
       </div>
 
       <!-- 4. Ethics & Biosafety -->
       <div class="declaration-card">
-        <div class="declaration-title">4. Ethical Approval & Biosafety Statement</div>
+        <div class="declaration-title">4. Ethical Approval and Biosafety Statement</div>
         <div class="declaration-desc">Does this study involve human subjects, clinical patient isolates, vertebrate animals, or Biosafety Level 3/4 organisms?</div>
         <div class="declaration-options">
           <label class="radio-inline">
@@ -371,7 +369,7 @@
           </label>
           <label class="radio-inline">
             <input type="radio" name="ethics" value="yes">
-            Yes &mdash; Institutional ethics approval obtained
+            Yes: Institutional ethics approval obtained
           </label>
         </div>
         <div class="conditional-input-box" id="ethics-details-box">
@@ -381,71 +379,39 @@
 
       <!-- 5. Data Availability -->
       <div class="declaration-card">
-        <div class="declaration-title">5. Data & Code Availability Statement <span style="color: var(--em-danger);">*</span></div>
+        <div class="declaration-title">5. Data and Code Availability Statement <span style="color: var(--em-danger);">*</span></div>
         <div class="declaration-desc">JMR enforces mandatory data sharing. Provide public accession numbers (NCBI BioProject, SRA, GenBank) or open code repository URLs.</div>
         <input type="text" id="input-data-availability" class="form-control" placeholder="e.g. Raw reads deposited in NCBI SRA under BioProject PRJNAXXXXXX; pipelines at github.com/lab/repo">
       </div>
 
       <!-- Part C: Author List & Affiliations -->
       <h3 class="form-section-title">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-        C. Authors & Affiliations
+        C. Authors and Affiliations
       </h3>
 
-      <div class="authors-wrap">
-        <!-- Corresponding Author -->
-        <div class="author-entry-card" id="corresponding-author-card">
-          <div class="author-header-strip">
-            <span class="author-number" style="color: var(--em-teal);">Author 1 &mdash; Primary Corresponding Author</span>
-            <span class="item-badge badge-cover">Corresponding</span>
-          </div>
-          <div class="author-grid-3">
-            <div class="form-group" style="margin-bottom: 0.5rem;">
-              <label>Full Name <span class="req">*</span></label>
-              <input type="text" id="corr-name" class="form-control" placeholder="e.g. Dr. Ihtisham Naeem">
-            </div>
-            <div class="form-group" style="margin-bottom: 0.5rem;">
-              <label>Email Address <span class="req">*</span></label>
-              <input type="email" id="corr-email" class="form-control" placeholder="e.g. author@institution.edu">
-            </div>
-            <div class="form-group" style="margin-bottom: 0.5rem;">
-              <label>Institution / Affiliation <span class="req">*</span></label>
-              <input type="text" id="corr-institution" class="form-control" placeholder="Department, University, City">
-            </div>
-            <div class="form-group" style="margin-bottom: 0;">
-              <label>Country <span class="req">*</span></label>
-              <input type="text" id="corr-country" class="form-control" placeholder="e.g. United Kingdom, Pakistan, USA">
-            </div>
-            <div class="form-group" style="margin-bottom: 0;">
-              <label>ORCID iD (Optional)</label>
-              <input type="text" id="corr-orcid" class="form-control" placeholder="0000-0002-1825-0097">
-            </div>
-          </div>
-        </div>
-
-        <!-- Dynamic Co-Authors Container -->
-        <div id="coauthors-container"></div>
+      <div class="authors-wrap" id="authors-wrapper">
+        <!-- Author rows injected dynamically -->
       </div>
 
       <button type="button" class="btn-add-author" id="btn-add-coauthor">
-        <span>+</span> Add Co-Author
+        + Add Author
       </button>
 
       <div class="step-navigation-footer">
-        <button type="button" class="btn-em-prev">&larr; Back: Attach Files</button>
+        <button type="button" class="btn-em-prev">Back</button>
         <button type="button" class="btn-em-next" id="btn-next-step-3">
-          Next: Review & Hybrid Model &rarr;
+          Next
         </button>
       </div>
     </section>
 
-    <!-- ─────────────────────────────────────────
+    <!-- -----------------------------------------
          STEP 4: HYBRID MODEL & FINAL REVIEW
-         ───────────────────────────────────────── -->
+         ----------------------------------------- -->
     <section class="submission-step-card" id="step-card-4">
       <div class="step-header">
-        <h2>4. Hybrid Publishing Model Selection & Submission Review</h2>
-        <p>The <em>Journal of MetaResistome (JMR)</em> operates as a <strong>Hybrid Open Access Journal</strong>. Authors have full freedom to choose their preferred publishing route upon acceptance.</p>
+        <h2>4. Hybrid Publishing Model Selection and Submission Review</h2>
+        <p>The <em>Journal of MetaResistome (JMR)</em> operates as a <strong>Hybrid Journal</strong>. Authors have full freedom to choose their preferred publishing route upon acceptance.</p>
       </div>
 
       <div class="form-group">
@@ -464,15 +430,14 @@
             <span class="hybrid-badge badge-sub">Subscription Publishing</span>
             <input type="radio" name="hybrid-model-radio" style="position: absolute; top: 1.25rem; right: 1.25rem; accent-color: var(--em-teal);">
             <h4>Traditional Publishing (Zero APC)</h4>
-            <p>No publication fees are charged to the authors. The article is published under standard institutional access and subscription archiving.</p>
+            <p>No publication charges are levied to authors. The article is published under standard institutional access and subscription archiving.</p>
           </div>
         </div>
       </div>
 
       <!-- Submission Summary Table -->
       <h3 class="form-section-title">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
-        Submission Summary & Package Manifest
+        Submission Summary and Package Manifest
       </h3>
 
       <div class="review-summary-box">
@@ -486,28 +451,28 @@
         <label>
           <input type="checkbox" id="confirm-agreement-check" style="margin-top: 3px; accent-color: var(--em-warning);">
           <span>
-            <strong>Author Affirmation & Warranty:</strong> I hereby certify on behalf of all co-authors that this manuscript represents original scholarship, that all listed authors contributed substantially and approved this submission, and that all data and code statements conform to the ethical standards of the Journal of MetaResistome and the Committee on Publication Ethics (COPE).
+            <strong>Author Affirmation and Warranty:</strong> I certify on behalf of all co-authors that this manuscript represents original scholarship, that all listed authors contributed substantially and approved this submission, and that all data and code statements conform to the ethical standards of the Journal of MetaResistome and the Committee on Publication Ethics (COPE).
           </span>
         </label>
       </div>
 
       <div class="step-navigation-footer">
-        <button type="button" class="btn-em-prev">&larr; Back: Details & Declarations</button>
+        <button type="button" class="btn-em-prev">Back</button>
         <button type="button" class="btn-em-submit" id="btn-final-submit" disabled>
-          Submit Manuscript to JMR
+          Submit Manuscript
         </button>
       </div>
     </section>
 
-    <!-- ─────────────────────────────────────────
+    <!-- -----------------------------------------
          CONFIRMATION / SUCCESS CARD
-         ───────────────────────────────────────── -->
+         ----------------------------------------- -->
     <section class="submission-success-card" id="submission-success-card">
       <div class="success-badge-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
       </div>
 
-      <h2 style="font-size: 1.75rem; color: var(--em-navy); margin-bottom: 0.5rem;">Manuscript Successfully Submitted!</h2>
+      <h2 style="font-size: 1.75rem; color: var(--em-navy); margin-bottom: 0.5rem;">Manuscript Successfully Submitted</h2>
       <p style="color: var(--em-muted); font-size: 0.95rem;">Your submission package has been generated and recorded in the Journal of MetaResistome Editorial Office.</p>
 
       <div class="tracking-id-display">
@@ -516,16 +481,16 @@
 
       <div class="next-steps-timeline">
         <div class="timeline-event">
-          <h5>1. Submission Manifest & Archive Generated</h5>
+          <h5>1. Submission Manifest and Archive Generated</h5>
           <p>A complete submission archive (.zip) containing your manuscript files and metadata manifest has been saved to your downloads.</p>
         </div>
         <div class="timeline-event">
-          <h5>2. Initial Editorial Triage (Days 1–7)</h5>
+          <h5>2. Initial Editorial Triage (Days 1 - 7)</h5>
           <p>Founding Editor Dr. Shafiq and section editors will conduct a preliminary scope, ethics, and plagiarism check.</p>
         </div>
         <div class="timeline-event">
-          <h5>3. Independent Peer Review (Days 8–28)</h5>
-          <p>Upon passing initial triage, your manuscript is assigned to two expert peer reviewers for double-blind or single-blind evaluation.</p>
+          <h5>3. Independent Peer Review (Days 8 - 28)</h5>
+          <p>Upon passing initial triage, your manuscript is assigned to two expert peer reviewers for evaluation.</p>
         </div>
         <div class="timeline-event">
           <h5>4. Editorial Decision</h5>
@@ -535,24 +500,24 @@
 
       <div class="success-action-buttons">
         <a href="#" id="btn-email-dispatch" class="btn-download-manifest">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
           Send Confirmation Email to Editor
         </a>
         <a href="index.html" class="btn-return-home">
-          &larr; Return to Journal Homepage
+          Return to Journal Homepage
         </a>
       </div>
     </section>
 
   </main>
 
-  <!-- ═══════════════════════════════════════════
+  <!-- ===========================================
        SUBMISSION PORTAL FOOTER
-       ═══════════════════════════════════════════ -->
+       =========================================== -->
   <footer class="submission-footer">
     <div>&copy; 2026 Journal of MetaResistome (JMR) &bull; Editorial Submission Portal &bull; COPE-Compliant Scholarly Publishing</div>
     <div style="margin-top: 0.35rem; color: #8C9BAE;">
-      For technical submission support or editorial queries, contact <a href="mailto:editor@metaresistome.org" style="color: var(--em-teal);">editor@metaresistome.org</a>
+      For technical submission support or editorial inquiries, contact <a href="mailto:editor@metaresistome.org" style="color: var(--em-teal);">editor@metaresistome.org</a>
+      &bull; <a href="editor-portal.html" target="_blank" style="color: var(--em-teal); text-decoration: underline;">Editorial Office Intake Login</a>
     </div>
   </footer>
 

@@ -1,10 +1,52 @@
 /**
  * Journal of MetaResistome (JMR) - Editorial Submission System Runtime
- * Inspired by Elsevier Editorial Manager / Aries Systems workflow
+ * Elsevier / Aries Editorial Manager-Inspired Scholarly Submission Portal
  */
 
 (function () {
   'use strict';
+
+  // Comprehensive global scholarly institutions list for fast autocomplete search
+  const INSTITUTIONS_DB = [
+    { name: "University of Oxford", country: "United Kingdom" },
+    { name: "University of Cambridge", country: "United Kingdom" },
+    { name: "Imperial College London", country: "United Kingdom" },
+    { name: "University College London (UCL)", country: "United Kingdom" },
+    { name: "London School of Hygiene & Tropical Medicine (LSHTM)", country: "United Kingdom" },
+    { name: "Wellcome Sanger Institute", country: "United Kingdom" },
+    { name: "University of Edinburgh", country: "United Kingdom" },
+    { name: "University of Manchester", country: "United Kingdom" },
+    { name: "King's College London", country: "United Kingdom" },
+    { name: "Harvard University", country: "United States" },
+    { name: "Massachusetts Institute of Technology (MIT)", country: "United States" },
+    { name: "Stanford University", country: "United States" },
+    { name: "Johns Hopkins University", country: "United States" },
+    { name: "University of California, Berkeley", country: "United States" },
+    { name: "University of California, San Francisco (UCSF)", country: "United States" },
+    { name: "Yale University", country: "United States" },
+    { name: "Columbia University", country: "United States" },
+    { name: "National Institutes of Health (NIH)", country: "United States" },
+    { name: "Centers for Disease Control and Prevention (CDC)", country: "United States" },
+    { name: "University of Toronto", country: "Canada" },
+    { name: "McGill University", country: "Canada" },
+    { name: "University of British Columbia", country: "Canada" },
+    { name: "Karolinska Institute", country: "Sweden" },
+    { name: "Max Planck Institute", country: "Germany" },
+    { name: "Charite - Universitatsmedizin Berlin", country: "Germany" },
+    { name: "Institut Pasteur", country: "France" },
+    { name: "ETH Zurich", country: "Switzerland" },
+    { name: "University of Zurich", country: "Switzerland" },
+    { name: "World Health Organization (WHO)", country: "Switzerland" },
+    { name: "National University of Singapore (NUS)", country: "Singapore" },
+    { name: "Nanyang Technological University (NTU)", country: "Singapore" },
+    { name: "Peking University", country: "China" },
+    { name: "Tsinghua University", country: "China" },
+    { name: "The University of Tokyo", country: "Japan" },
+    { name: "Kyoto University", country: "Japan" },
+    { name: "University of Melbourne", country: "Australia" },
+    { name: "The University of Sydney", country: "Australia" },
+    { name: "University of Queensland", country: "Australia" }
+  ];
 
   // State Store
   const submissionState = {
@@ -27,50 +69,54 @@
     },
     authors: [
       {
-        isCorresponding: true,
-        name: '',
-        email: '',
+        id: 'auth_1',
+        prefix: 'Dr.',
+        firstName: 'Ihtisham',
+        middleName: '',
+        familyName: 'Naeem',
+        email: 'ihtishamnaeem36@gmail.com',
         institution: '',
         country: '',
-        orcid: ''
+        orcid: '',
+        isCorresponding: true
       }
-    ],
-    suggestedReviewers: [
-      { name: '', email: '', institution: '' },
-      { name: '', email: '', institution: '' }
     ],
     publishingModel: 'open-access',
     submissionId: null
   };
 
-  // Item Type Metadata (Single vs Multiple upload rules)
+  // Item Definitions & Ordering priority
   const ITEM_DEFINITIONS = {
     cover_letter: {
       name: 'Cover Letter',
       badgeClass: 'badge-cover',
       isSingle: true,
       required: true,
+      rank: 1,
       description: 'Confidential letter to Editor-in-Chief highlighting originality, significance, and ethical compliance.'
+    },
+    title_page: {
+      name: 'Title Page',
+      badgeClass: 'badge-titlepage',
+      isSingle: true,
+      required: false,
+      rank: 2,
+      description: 'Optional separate title page containing author details, affiliations, and acknowledgments.'
     },
     manuscript: {
       name: 'Manuscript File',
       badgeClass: 'badge-manuscript',
       isSingle: true,
       required: true,
-      description: 'Complete text document (.docx or .pdf) including Introduction, Methods, Results, Discussion, and References.'
-    },
-    title_page: {
-      name: 'Title Page (Double-Blind)',
-      badgeClass: 'badge-titlepage',
-      isSingle: true,
-      required: false,
-      description: 'Separate title page containing author details, affiliations, and acknowledgments if selecting blinded review.'
+      rank: 3,
+      description: 'Complete text document (.docx, .pdf, or .odt) including Introduction, Methods, Results, Discussion, and References.'
     },
     figure: {
       name: 'Figure',
       badgeClass: 'badge-figure',
       isSingle: false,
       required: false,
+      rank: 4,
       description: 'High-resolution image (.png, .jpg, .tif, .eps). Multiple figures permitted.'
     },
     table: {
@@ -78,25 +124,28 @@
       badgeClass: 'badge-table',
       isSingle: false,
       required: false,
+      rank: 5,
       description: 'Data tables (.docx, .xlsx). Multiple tables permitted.'
-    },
-    supplementary: {
-      name: 'Supplementary Material',
-      badgeClass: 'badge-supplementary',
-      isSingle: false,
-      required: false,
-      description: 'Supplementary datasets, primers, trees, or scripts (.pdf, .zip, .xlsx, .fasta).'
     },
     graphical_abstract: {
       name: 'Graphical Abstract',
       badgeClass: 'badge-graphical',
       isSingle: true,
       required: false,
+      rank: 6,
       description: 'Visual summary diagram illustrating primary findings.'
+    },
+    supplementary: {
+      name: 'Supplementary Material',
+      badgeClass: 'badge-supplementary',
+      isSingle: false,
+      required: false,
+      rank: 7,
+      description: 'Supplementary datasets, primers, trees, or scripts (.pdf, .zip, .xlsx, .fasta). Multiple files permitted.'
     }
   };
 
-  // DOM Elements
+  // DOM Ready
   document.addEventListener('DOMContentLoaded', initSubmissionPortal);
 
   function initSubmissionPortal() {
@@ -110,9 +159,9 @@
     updateValidationIndicators();
   }
 
-  /* ═══════════════════════════════════════════
-     1. STEP NAVIGATION & PROGRESSION
-     ═══════════════════════════════════════════ */
+  /* ===========================================
+     1. STEP NAVIGATION
+     =========================================== */
   function setupStepNavigation() {
     const prevBtns = document.querySelectorAll('.btn-em-prev');
     const nextBtns = document.querySelectorAll('.btn-em-next');
@@ -158,7 +207,6 @@
   function goToStep(stepNumber) {
     submissionState.currentStep = stepNumber;
 
-    // Toggle card visibility
     document.querySelectorAll('.submission-step-card').forEach(card => {
       card.classList.remove('active');
     });
@@ -168,7 +216,6 @@
       window.scrollTo({ top: 120, behavior: 'smooth' });
     }
 
-    // Update Progress Bar
     document.querySelectorAll('.step-node').forEach(node => {
       const step = parseInt(node.getAttribute('data-step'), 10);
       node.classList.remove('active', 'completed');
@@ -186,7 +233,6 @@
       }
     });
 
-    // If step 4 (Review), build review summary
     if (stepNumber === 4) {
       renderReviewSummary();
     }
@@ -236,37 +282,48 @@
         document.getElementById('input-keywords')?.focus();
         return false;
       }
-      const corr = submissionState.authors[0];
-      if (!corr.name.trim() || !corr.email.trim() || !corr.institution.trim()) {
-        if (showAlert) alert('Please complete the corresponding author name, email, and institution.');
-        return false;
+
+      // Check author validity
+      for (let i = 0; i < submissionState.authors.length; i++) {
+        const a = submissionState.authors[i];
+        if (!a.firstName.trim() || !a.familyName.trim() || !a.email.trim() || !a.institution.trim()) {
+          if (showAlert) alert(`Please complete the required fields (First Name, Family Name, Email, and Institution) for Author ${i + 1}.`);
+          return false;
+        }
       }
+
+      // Ensure at least one author is marked as corresponding
+      const hasCorresponding = submissionState.authors.some(a => a.isCorresponding);
+      if (!hasCorresponding) {
+        submissionState.authors[0].isCorresponding = true;
+      }
+
       return true;
     }
 
     return true;
   }
 
-  /* ═══════════════════════════════════════════
-     2. ARTICLE TYPE SELECTION
-     ═══════════════════════════════════════════ */
+  /* ===========================================
+     2. ARTICLE TYPE SELECTION (List Design)
+     =========================================== */
   function setupArticleTypeSelection() {
-    const cards = document.querySelectorAll('.article-type-card');
-    cards.forEach(card => {
-      card.addEventListener('click', () => {
-        cards.forEach(c => c.classList.remove('selected'));
-        card.classList.add('selected');
-        const radio = card.querySelector('input[type="radio"]');
+    const rows = document.querySelectorAll('.article-type-row');
+    rows.forEach(row => {
+      row.addEventListener('click', () => {
+        rows.forEach(r => r.classList.remove('selected'));
+        row.classList.add('selected');
+        const radio = row.querySelector('input[type="radio"]');
         if (radio) radio.checked = true;
-        submissionState.articleType = card.getAttribute('data-type');
+        submissionState.articleType = row.getAttribute('data-type');
         updateValidationIndicators();
       });
     });
   }
 
-  /* ═══════════════════════════════════════════
-     3. COMPLEX FILE UPLOAD SYSTEM (Single vs Multi, Red Alert, Remove)
-     ═══════════════════════════════════════════ */
+  /* ===========================================
+     3. FILE UPLOADS, REORDERING & TEXT EXTRACTION
+     =========================================== */
   function setupFileUploadSystem() {
     const itemSelect = document.getElementById('item-type-select');
     const helperText = document.getElementById('item-helper-text');
@@ -274,10 +331,10 @@
     const alertMessage = document.getElementById('single-file-alert-msg');
     const dropzone = document.getElementById('dropzone-area');
     const fileInput = document.getElementById('file-upload-input');
+    const reorderBtn = document.getElementById('btn-reorder-files');
 
     if (!itemSelect || !dropzone || !fileInput) return;
 
-    // Item type change: update description & check if single-file already uploaded
     itemSelect.addEventListener('change', () => {
       const selectedType = itemSelect.value;
       const def = ITEM_DEFINITIONS[selectedType];
@@ -292,7 +349,7 @@
       if (def && def.isSingle) {
         const existing = submissionState.files.find(f => f.itemType === selectedType);
         if (existing) {
-          alertMessage.innerHTML = `⚠️ <strong>Duplicate Item Alert:</strong> You have already uploaded a <u>${def.name}</u> (<em>${escapeHtml(existing.name)}</em>). This category accepts only ONE file. To upload a different version, click the <strong>❌ Remove</strong> button next to the file in the table below before attaching a new file.`;
+          alertMessage.innerHTML = `<strong>Notice:</strong> You have already uploaded a <u>${def.name}</u> (<em>${escapeHtml(existing.name)}</em>). This category accepts only one file. To upload a different version, click the <strong>Remove</strong> button next to the existing file in the table below before attaching a new file.`;
           singleAlert.classList.add('is-visible');
           return true;
         }
@@ -301,7 +358,14 @@
       return false;
     }
 
-    // Dropzone drag/drop handlers
+    // Reorder files button
+    if (reorderBtn) {
+      reorderBtn.addEventListener('click', () => {
+        reorderFilesToStandardSequence();
+      });
+    }
+
+    // Drag and drop handlers
     ['dragenter', 'dragover'].forEach(eventName => {
       dropzone.addEventListener(eventName, (e) => {
         e.preventDefault();
@@ -328,30 +392,27 @@
     fileInput.addEventListener('change', (e) => {
       if (fileInput.files.length > 0) {
         handleIncomingFiles(fileInput.files);
-        fileInput.value = ''; // Reset so the same file can be re-selected if removed
+        fileInput.value = '';
       }
     });
 
-    function handleIncomingFiles(fileList) {
+    async function handleIncomingFiles(fileList) {
       const selectedType = itemSelect.value;
       const def = ITEM_DEFINITIONS[selectedType];
       if (!def) return;
 
-      // Single-file check
       if (def.isSingle) {
         const existing = submissionState.files.find(f => f.itemType === selectedType);
         if (existing) {
-          alertMessage.innerHTML = `⚠️ <strong>Action Blocked:</strong> You have already uploaded a <u>${def.name}</u> (<em>${escapeHtml(existing.name)}</em>). To replace it, please first remove the existing file using the <strong>❌ Remove</strong> button in the table below.`;
+          alertMessage.innerHTML = `<strong>Notice:</strong> You have already uploaded a <u>${def.name}</u> (<em>${escapeHtml(existing.name)}</em>). To replace it, please first remove the existing file using the <strong>Remove</strong> button in the table below.`;
           singleAlert.classList.add('is-visible');
           return;
         }
       }
 
-      // Add files
-      Array.from(fileList).forEach(file => {
-        // Enforce max 1 file for single categories
+      for (let file of Array.from(fileList)) {
         if (def.isSingle && submissionState.files.some(f => f.itemType === selectedType)) {
-          return;
+          break;
         }
 
         const fileRecord = {
@@ -365,11 +426,127 @@
         };
 
         submissionState.files.push(fileRecord);
-      });
+
+        // If manuscript file, attempt automatic title & abstract extraction
+        if (selectedType === 'manuscript') {
+          extractTitleAndAbstractFromManuscript(file);
+        }
+      }
 
       singleAlert.classList.remove('is-visible');
       renderFilesTable();
       updateValidationIndicators();
+    }
+  }
+
+  // Automatic Reorder Files to Standard Scholarly Sequence
+  function reorderFilesToStandardSequence() {
+    submissionState.files.sort((a, b) => {
+      const rankA = ITEM_DEFINITIONS[a.itemType]?.rank || 99;
+      const rankB = ITEM_DEFINITIONS[b.itemType]?.rank || 99;
+      if (rankA !== rankB) return rankA - rankB;
+      return a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' });
+    });
+
+    renderFilesTable();
+    const summarySpan = document.getElementById('files-count-summary');
+    if (summarySpan) {
+      summarySpan.textContent = 'Files sorted to journal standard sequence';
+      setTimeout(() => {
+        summarySpan.textContent = `${submissionState.files.length} file${submissionState.files.length > 1 ? 's' : ''} attached`;
+      }, 2500);
+    }
+  }
+
+  // Extract Title and Abstract from .docx or .txt manuscript
+  async function extractTitleAndAbstractFromManuscript(file) {
+    try {
+      const fileName = file.name.toLowerCase();
+      let rawText = '';
+
+      if (fileName.endsWith('.docx') && typeof JSZip !== 'undefined') {
+        const zip = await JSZip.loadAsync(file);
+        const docXml = await zip.file('word/document.xml')?.async('text');
+        if (docXml) {
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(docXml, 'text/xml');
+          const pElements = xmlDoc.getElementsByTagName('w:p');
+          const paragraphs = [];
+          for (let i = 0; i < pElements.length; i++) {
+            const textNodes = pElements[i].getElementsByTagName('w:t');
+            let pText = '';
+            for (let j = 0; j < textNodes.length; j++) {
+              pText += textNodes[j].textContent;
+            }
+            pText = pText.trim();
+            if (pText) paragraphs.push(pText);
+          }
+          rawText = paragraphs.join('\n\n');
+        }
+      } else if (fileName.endsWith('.txt')) {
+        rawText = await file.text();
+      }
+
+      if (!rawText) return;
+
+      const lines = rawText.split('\n').map(l => l.trim()).filter(Boolean);
+      if (lines.length === 0) return;
+
+      // Candidate Title: First substantive line between 15 and 300 characters
+      let candidateTitle = '';
+      for (let line of lines.slice(0, 5)) {
+        if (line.length >= 15 && line.length <= 300 && !line.toLowerCase().startsWith('page')) {
+          candidateTitle = line;
+          break;
+        }
+      }
+
+      // Candidate Abstract: Search for "Abstract" or "Summary" header
+      let candidateAbstract = '';
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        if (/^(abstract|summary):?/i.test(line)) {
+          // Collect text following this header
+          const abstractParas = [];
+          let startText = line.replace(/^(abstract|summary):?/i, '').trim();
+          if (startText) abstractParas.push(startText);
+
+          for (let j = i + 1; j < Math.min(i + 8, lines.length); j++) {
+            const nextLine = lines[j];
+            if (/^(keywords|key words|1\.\s*introduction|introduction):?/i.test(nextLine)) {
+              break;
+            }
+            abstractParas.push(nextLine);
+          }
+          candidateAbstract = abstractParas.join(' ');
+          break;
+        }
+      }
+
+      // Pre-fill inputs if found and user hasn't typed their own yet
+      let populated = false;
+      const titleInput = document.getElementById('input-title');
+      const abstractInput = document.getElementById('input-abstract');
+      const statusBanner = document.getElementById('extraction-status-banner');
+
+      if (candidateTitle && titleInput && !titleInput.value.trim()) {
+        titleInput.value = candidateTitle;
+        submissionState.metadata.title = candidateTitle;
+        populated = true;
+      }
+
+      if (candidateAbstract && abstractInput && !abstractInput.value.trim()) {
+        abstractInput.value = candidateAbstract;
+        submissionState.metadata.abstract = candidateAbstract;
+        updateWordCount(candidateAbstract);
+        populated = true;
+      }
+
+      if (populated && statusBanner) {
+        statusBanner.style.display = 'block';
+      }
+    } catch (err) {
+      console.warn('Metadata extraction notice:', err);
     }
   }
 
@@ -395,7 +572,7 @@
       summarySpan.textContent = `${submissionState.files.length} file${submissionState.files.length > 1 ? 's' : ''} attached`;
     }
 
-    tableBody.innerHTML = submissionState.files.map((fileObj, index) => {
+    tableBody.innerHTML = submissionState.files.map((fileObj) => {
       const def = ITEM_DEFINITIONS[fileObj.itemType] || { name: fileObj.itemType, badgeClass: 'badge-supplementary' };
       const formattedSize = formatBytes(fileObj.size);
 
@@ -414,17 +591,16 @@
             <span style="color: var(--em-success); font-weight: 600; font-size: 0.8rem;">Ready</span>
           </td>
           <td style="text-align: right;">
-            <button type="button" class="btn-remove-file" data-file-id="${fileObj.id}" title="Remove this file to re-upload">
-              <span>&times;</span> Remove
+            <button type="button" class="btn-remove-file" data-file-id="${fileObj.id}" title="Remove file">
+              x Remove
             </button>
           </td>
         </tr>
       `;
     }).join('');
 
-    // Attach remove event listeners
     tableBody.querySelectorAll('.btn-remove-file').forEach(btn => {
-      btn.addEventListener('click', (e) => {
+      btn.addEventListener('click', () => {
         const fileId = btn.getAttribute('data-file-id');
         removeFile(fileId);
       });
@@ -436,8 +612,7 @@
     if (removedIndex !== -1) {
       const removed = submissionState.files[removedIndex];
       submissionState.files.splice(removedIndex, 1);
-      
-      // Hide red alert if it was about this file
+
       const itemSelect = document.getElementById('item-type-select');
       if (itemSelect && itemSelect.value === removed.itemType) {
         document.getElementById('single-file-alert')?.classList.remove('is-visible');
@@ -458,12 +633,12 @@
 
     if (checkCover) {
       checkCover.className = `check-item ${hasCover ? 'valid' : 'invalid'}`;
-      checkCover.innerHTML = `${hasCover ? '✓' : '✗'} Cover Letter ${hasCover ? '(Attached)' : '(Required)'}`;
+      checkCover.textContent = `Cover Letter: ${hasCover ? 'Attached' : 'Required'}`;
     }
 
     if (checkManuscript) {
       checkManuscript.className = `check-item ${hasManuscript ? 'valid' : 'invalid'}`;
-      checkManuscript.innerHTML = `${hasManuscript ? '✓' : '✗'} Manuscript File ${hasManuscript ? '(Attached)' : '(Required)'}`;
+      checkManuscript.textContent = `Manuscript File: ${hasManuscript ? 'Attached' : 'Required'}`;
     }
 
     if (nextBtnStep2) {
@@ -477,28 +652,17 @@
     }
   }
 
-  /* ═══════════════════════════════════════════
-     4. QUESTIONNAIRE, DECLARATIONS & ABSTRACT COUNTER
-     ═══════════════════════════════════════════ */
+  /* ===========================================
+     4. DECLARATIONS & ABSTRACT WORD COUNTER
+     =========================================== */
   function setupDeclarationsAndForm() {
-    // Abstract word counter
     const abstractArea = document.getElementById('input-abstract');
-    const wordCounter = document.getElementById('abstract-word-count');
-
-    if (abstractArea && wordCounter) {
+    if (abstractArea) {
       abstractArea.addEventListener('input', () => {
-        const text = abstractArea.value.trim();
-        const words = text ? text.split(/\s+/).length : 0;
-        wordCounter.textContent = `${words} words (recommended 250 max)`;
-        if (words > 300) {
-          wordCounter.style.color = 'var(--em-danger)';
-        } else {
-          wordCounter.style.color = 'var(--em-muted)';
-        }
+        updateWordCount(abstractArea.value);
       });
     }
 
-    // Prior submission conditional box
     const priorRadios = document.querySelectorAll('input[name="prior-submission"]');
     const priorDetailsBox = document.getElementById('prior-details-box');
     priorRadios.forEach(radio => {
@@ -513,7 +677,6 @@
       });
     });
 
-    // Conflict of interest conditional box
     const coiRadios = document.querySelectorAll('input[name="coi"]');
     const coiDetailsBox = document.getElementById('coi-details-box');
     coiRadios.forEach(radio => {
@@ -528,7 +691,6 @@
       });
     });
 
-    // Ethics conditional box
     const ethicsRadios = document.querySelectorAll('input[name="ethics"]');
     const ethicsDetailsBox = document.getElementById('ethics-details-box');
     ethicsRadios.forEach(radio => {
@@ -544,13 +706,29 @@
     });
   }
 
+  function updateWordCount(text) {
+    const wordCounter = document.getElementById('abstract-word-count');
+    const abstractArea = document.getElementById('input-abstract');
+    if (!wordCounter) return;
+
+    const trimmed = text.trim();
+    const words = trimmed ? trimmed.split(/\s+/).length : 0;
+
+    if (words > 250) {
+      wordCounter.innerHTML = `<span style="color: var(--em-danger); font-weight: 700;">${words} / 250 words (Exceeds maximum limit)</span>`;
+      if (abstractArea) abstractArea.style.borderColor = 'var(--em-danger)';
+    } else {
+      wordCounter.innerHTML = `${words} / 250 words`;
+      if (abstractArea) abstractArea.style.borderColor = '';
+    }
+  }
+
   function saveFormDataToState() {
     submissionState.metadata.title = document.getElementById('input-title')?.value || '';
     submissionState.metadata.abstract = document.getElementById('input-abstract')?.value || '';
     submissionState.metadata.keywords = document.getElementById('input-keywords')?.value || '';
     submissionState.metadata.section = document.getElementById('input-section')?.value || '';
 
-    // Radios
     const priorVal = document.querySelector('input[name="prior-submission"]:checked')?.value || 'no';
     submissionState.metadata.priorSubmission = priorVal;
     submissionState.metadata.priorDetails = document.getElementById('input-prior-details')?.value || '';
@@ -565,83 +743,215 @@
 
     submissionState.metadata.funding = document.getElementById('input-funding')?.value || '';
     submissionState.metadata.dataAvailability = document.getElementById('input-data-availability')?.value || '';
-
-    // Corresponding Author
-    submissionState.authors[0].name = document.getElementById('corr-name')?.value || '';
-    submissionState.authors[0].email = document.getElementById('corr-email')?.value || '';
-    submissionState.authors[0].institution = document.getElementById('corr-institution')?.value || '';
-    submissionState.authors[0].country = document.getElementById('corr-country')?.value || '';
-    submissionState.authors[0].orcid = document.getElementById('corr-orcid')?.value || '';
-
-    // Co-Authors
-    const coAuthorCards = document.querySelectorAll('.co-author-row');
-    const parsedCoAuthors = [];
-    coAuthorCards.forEach(card => {
-      const name = card.querySelector('.co-author-name')?.value || '';
-      const email = card.querySelector('.co-author-email')?.value || '';
-      const inst = card.querySelector('.co-author-institution')?.value || '';
-      if (name.trim()) {
-        parsedCoAuthors.push({ isCorresponding: false, name, email, institution: inst });
-      }
-    });
-
-    submissionState.authors = [submissionState.authors[0], ...parsedCoAuthors];
   }
 
-  /* ═══════════════════════════════════════════
-     5. DYNAMIC AUTHOR MANAGEMENT
-     ═══════════════════════════════════════════ */
+  /* ===========================================
+     5. AUTHOR MANAGEMENT & INSTITUTION SEARCH
+     =========================================== */
   function setupAuthorManagement() {
     const addAuthorBtn = document.getElementById('btn-add-coauthor');
-    const coauthorsContainer = document.getElementById('coauthors-container');
+    if (addAuthorBtn) {
+      addAuthorBtn.addEventListener('click', () => {
+        const newAuthor = {
+          id: 'auth_' + Math.random().toString(36).substr(2, 9),
+          prefix: '',
+          firstName: '',
+          middleName: '',
+          familyName: '',
+          email: '',
+          institution: '',
+          country: '',
+          orcid: '',
+          isCorresponding: false
+        };
+        submissionState.authors.push(newAuthor);
+        renderAuthorsList();
+      });
+    }
 
-    if (!addAuthorBtn || !coauthorsContainer) return;
+    renderAuthorsList();
+  }
 
-    addAuthorBtn.addEventListener('click', () => {
-      const coAuthorIndex = coauthorsContainer.children.length + 2;
-      const card = document.createElement('div');
-      card.className = 'author-entry-card co-author-row';
-      card.innerHTML = `
-        <div class="author-header-strip">
-          <span class="author-number">Co-Author ${coAuthorIndex}</span>
-          <button type="button" class="btn-remove-file btn-remove-coauthor">&times; Remove Co-Author</button>
-        </div>
-        <div class="author-grid-3">
-          <div class="form-group" style="margin-bottom: 0;">
-            <label>Full Name</label>
-            <input type="text" class="form-control co-author-name" placeholder="Dr. Jane Smith">
+  function renderAuthorsList() {
+    const container = document.getElementById('authors-wrapper');
+    if (!container) return;
+
+    container.innerHTML = submissionState.authors.map((author, index) => {
+      const isFirst = index === 0;
+      return `
+        <div class="author-entry-card" data-author-id="${author.id}">
+          <div class="author-header-strip">
+            <span class="author-number">Author ${index + 1}</span>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <label style="font-size: 0.825rem; font-weight: 700; color: var(--em-navy); display: flex; align-items: center; gap: 0.35rem; cursor: pointer;">
+                <input type="radio" name="corresponding-author-radio" class="corresponding-radio" data-author-id="${author.id}" ${author.isCorresponding ? 'checked' : ''}>
+                Corresponding Author
+              </label>
+              ${!isFirst ? `<button type="button" class="btn-remove-file btn-remove-author" data-author-id="${author.id}">Remove Author</button>` : ''}
+            </div>
           </div>
-          <div class="form-group" style="margin-bottom: 0;">
-            <label>Email Address</label>
-            <input type="email" class="form-control co-author-email" placeholder="jane.smith@univ.edu">
+
+          <div style="display: grid; grid-template-columns: 90px 1fr 1fr 1fr; gap: 0.75rem; margin-bottom: 0.85rem;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label>Title</label>
+              <select class="form-control auth-prefix" data-field="prefix">
+                <option value="Dr." ${author.prefix === 'Dr.' ? 'selected' : ''}>Dr.</option>
+                <option value="Prof." ${author.prefix === 'Prof.' ? 'selected' : ''}>Prof.</option>
+                <option value="Mr." ${author.prefix === 'Mr.' ? 'selected' : ''}>Mr.</option>
+                <option value="Ms." ${author.prefix === 'Ms.' ? 'selected' : ''}>Ms.</option>
+                <option value="" ${!author.prefix ? 'selected' : ''}>None</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label>First Name <span class="req">*</span></label>
+              <input type="text" class="form-control auth-field" data-field="firstName" value="${escapeHtml(author.firstName)}" placeholder="First / Given Name">
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label>Middle Name</label>
+              <input type="text" class="form-control auth-field" data-field="middleName" value="${escapeHtml(author.middleName)}" placeholder="Middle Name">
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label>Family Name <span class="req">*</span></label>
+              <input type="text" class="form-control auth-field" data-field="familyName" value="${escapeHtml(author.familyName)}" placeholder="Family / Surname">
+            </div>
           </div>
-          <div class="form-group" style="margin-bottom: 0;">
-            <label>Institution / Affiliation</label>
-            <input type="text" class="form-control co-author-institution" placeholder="University, Department, City">
+
+          <div style="display: grid; grid-template-columns: 1fr 1.25fr 1fr 1fr; gap: 0.75rem;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label>Email Address <span class="req">*</span></label>
+              <input type="email" class="form-control auth-field" data-field="email" value="${escapeHtml(author.email)}" placeholder="author@institution.edu">
+            </div>
+            <div class="form-group institution-search-wrap" style="margin-bottom: 0;">
+              <label>Institution <span class="req">*</span></label>
+              <input type="text" class="form-control auth-inst-input" data-field="institution" value="${escapeHtml(author.institution)}" placeholder="Type to search institution...">
+              <ul class="institution-results-dropdown"></ul>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label>Country <span class="req">*</span></label>
+              <input type="text" class="form-control auth-field auth-country" data-field="country" value="${escapeHtml(author.country)}" placeholder="e.g. United Kingdom, United States, Germany">
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label>ORCID iD</label>
+              <input type="text" class="form-control auth-field" data-field="orcid" value="${escapeHtml(author.orcid)}" placeholder="0000-0000-0000-0000">
+            </div>
           </div>
         </div>
       `;
+    }).join('');
 
-      card.querySelector('.btn-remove-coauthor').addEventListener('click', () => {
-        card.remove();
-        reindexCoAuthors();
+    // Attach listeners
+    container.querySelectorAll('.author-entry-card').forEach(card => {
+      const authId = card.getAttribute('data-author-id');
+      const author = submissionState.authors.find(a => a.id === authId);
+      if (!author) return;
+
+      // Inputs binding
+      card.querySelectorAll('.auth-field, .auth-prefix').forEach(input => {
+        input.addEventListener('input', (e) => {
+          const field = e.target.getAttribute('data-field');
+          author[field] = e.target.value;
+        });
       });
 
-      coauthorsContainer.appendChild(card);
+      // Corresponding radio
+      const corrRadio = card.querySelector('.corresponding-radio');
+      if (corrRadio) {
+        corrRadio.addEventListener('change', () => {
+          submissionState.authors.forEach(a => a.isCorresponding = (a.id === authId));
+        });
+      }
+
+      // Remove author
+      const removeBtn = card.querySelector('.btn-remove-author');
+      if (removeBtn) {
+        removeBtn.addEventListener('click', () => {
+          const idx = submissionState.authors.findIndex(a => a.id === authId);
+          if (idx !== -1) {
+            submissionState.authors.splice(idx, 1);
+            if (!submissionState.authors.some(a => a.isCorresponding) && submissionState.authors.length > 0) {
+              submissionState.authors[0].isCorresponding = true;
+            }
+            renderAuthorsList();
+          }
+        });
+      }
+
+      // Institution Autocomplete
+      setupInstitutionAutocomplete(card, author);
     });
-
-    function reindexCoAuthors() {
-      const rows = coauthorsContainer.querySelectorAll('.co-author-row');
-      rows.forEach((row, i) => {
-        const title = row.querySelector('.author-number');
-        if (title) title.textContent = `Co-Author ${i + 2}`;
-      });
-    }
   }
 
-  /* ═══════════════════════════════════════════
+  function setupInstitutionAutocomplete(card, author) {
+    const instInput = card.querySelector('.auth-inst-input');
+    const countryInput = card.querySelector('.auth-country');
+    const dropdown = card.querySelector('.institution-results-dropdown');
+
+    if (!instInput || !dropdown) return;
+
+    instInput.addEventListener('input', () => {
+      const query = instInput.value.trim().toLowerCase();
+      author.institution = instInput.value;
+
+      if (query.length < 2) {
+        dropdown.classList.remove('is-open');
+        dropdown.innerHTML = '';
+        return;
+      }
+
+      const matches = INSTITUTIONS_DB.filter(item => 
+        item.name.toLowerCase().includes(query) || item.country.toLowerCase().includes(query)
+      ).slice(0, 6);
+
+      let html = matches.map(m => `
+        <li class="institution-result-item" data-name="${escapeHtml(m.name)}" data-country="${escapeHtml(m.country)}">
+          <span>${escapeHtml(m.name)}</span>
+          <span style="color: var(--em-muted); font-size: 0.75rem;">${escapeHtml(m.country)}</span>
+        </li>
+      `).join('');
+
+      html += `
+        <li class="institution-add-custom-btn" data-custom="${escapeHtml(instInput.value)}">
+          + Add "${escapeHtml(instInput.value)}" as custom institution
+        </li>
+      `;
+
+      dropdown.innerHTML = html;
+      dropdown.classList.add('is-open');
+
+      // Click on match
+      dropdown.querySelectorAll('.institution-result-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const chosenName = item.getAttribute('data-name');
+          const chosenCountry = item.getAttribute('data-country');
+          instInput.value = chosenName;
+          author.institution = chosenName;
+          if (countryInput && !countryInput.value.trim()) {
+            countryInput.value = chosenCountry;
+            author.country = chosenCountry;
+          }
+          dropdown.classList.remove('is-open');
+        });
+      });
+
+      // Click on custom
+      const customBtn = dropdown.querySelector('.institution-add-custom-btn');
+      if (customBtn) {
+        customBtn.addEventListener('click', () => {
+          dropdown.classList.remove('is-open');
+        });
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!card.contains(e.target)) {
+        dropdown.classList.remove('is-open');
+      }
+    });
+  }
+
+  /* ===========================================
      6. HYBRID JOURNAL MODEL SELECTION
-     ═══════════════════════════════════════════ */
+     =========================================== */
   function setupHybridModelSelection() {
     const hybridCards = document.querySelectorAll('.hybrid-card');
     hybridCards.forEach(card => {
@@ -655,9 +965,9 @@
     });
   }
 
-  /* ═══════════════════════════════════════════
-     7. REVIEW, MANIFEST GENERATION & DISPATCH
-     ═══════════════════════════════════════════ */
+  /* ===========================================
+     7. REVIEW, DISPATCH & STORAGE FOR EDITOR PORTAL
+     =========================================== */
   function setupSubmissionReview() {
     const submitBtn = document.getElementById('btn-final-submit');
     const agreementCheck = document.getElementById('confirm-agreement-check');
@@ -679,8 +989,8 @@
     const summaryBox = document.getElementById('review-summary-content');
     if (!summaryBox) return;
 
-    const articleTypeCard = document.querySelector(`.article-type-card[data-type="${submissionState.articleType}"] h3`);
-    const articleTypeName = articleTypeCard ? articleTypeCard.textContent : submissionState.articleType;
+    const rowElement = document.querySelector(`.article-type-row[data-type="${submissionState.articleType}"] .article-type-title`);
+    const articleTypeName = rowElement ? rowElement.textContent : submissionState.articleType;
 
     const filesListHtml = submissionState.files.map(f => {
       const def = ITEM_DEFINITIONS[f.itemType] || { name: f.itemType };
@@ -688,7 +998,8 @@
     }).join('');
 
     const authorsListHtml = submissionState.authors.map(a => {
-      return `<li>${escapeHtml(a.name)} (${escapeHtml(a.institution || 'Affiliation pending')}) - <em>${escapeHtml(a.email)}</em> ${a.isCorresponding ? '<strong>[Corresponding]</strong>' : ''}</li>`;
+      const fullName = [a.prefix, a.firstName, a.middleName, a.familyName].filter(Boolean).join(' ');
+      return `<li>${escapeHtml(fullName)} (${escapeHtml(a.institution || 'Affiliation pending')}) - <em>${escapeHtml(a.email)}</em> ${a.isCorresponding ? '<strong>[Corresponding Author]</strong>' : ''}</li>`;
     }).join('');
 
     summaryBox.innerHTML = `
@@ -721,7 +1032,7 @@
         </div>
       </div>
       <div class="review-item-row">
-        <div class="review-label">Prior Submission:</div>
+        <div class="review-label">Prior Publication:</div>
         <div class="review-value">${submissionState.metadata.priorSubmission === 'no' ? 'None (Original submission)' : 'Disclosed: ' + escapeHtml(submissionState.metadata.priorDetails)}</div>
       </div>
       <div class="review-item-row">
@@ -735,15 +1046,16 @@
     const submitBtn = document.getElementById('btn-final-submit');
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Generating Package & Dispatching...';
+      submitBtn.textContent = 'Generating Package...';
     }
 
-    // Generate Tracking ID
     const randomSeq = Math.floor(1000 + Math.random() * 9000);
     const trackingId = `JMR-2026-${randomSeq}`;
     submissionState.submissionId = trackingId;
 
-    // Create manifest object
+    const corrAuthor = submissionState.authors.find(a => a.isCorresponding) || submissionState.authors[0];
+    const corrFullName = [corrAuthor.prefix, corrAuthor.firstName, corrAuthor.middleName, corrAuthor.familyName].filter(Boolean).join(' ');
+
     const manifest = {
       journal: 'Journal of MetaResistome',
       issnOnline: 'Pending (Inaugural Vol 1)',
@@ -753,6 +1065,11 @@
       publishingModel: submissionState.publishingModel,
       metadata: submissionState.metadata,
       authors: submissionState.authors,
+      correspondingAuthor: {
+        name: corrFullName,
+        email: corrAuthor.email,
+        institution: corrAuthor.institution
+      },
       filesManifest: submissionState.files.map(f => ({
         itemType: f.itemType,
         name: f.name,
@@ -761,44 +1078,50 @@
       }))
     };
 
+    // Save to persistent localStorage for Editor Portal (editor-portal.html)
+    saveSubmissionToEditorDatabase(manifest);
+
     // Try building a client-side ZIP bundle using JSZip if available
     try {
       if (typeof JSZip !== 'undefined') {
         const zip = new JSZip();
-        
-        // Add manifest JSON
         zip.file(`SUBMISSION_MANIFEST_${trackingId}.json`, JSON.stringify(manifest, null, 2));
 
-        // Add human-readable summary
         const summaryText = buildSummaryText(manifest);
         zip.file(`SUBMISSION_RECEIPT_${trackingId}.txt`, summaryText);
 
-        // Add uploaded file blobs
         submissionState.files.forEach(f => {
           zip.file(`files/${f.itemType}_${f.name}`, f.file);
         });
 
-        // Generate zip blob & trigger download
         const content = await zip.generateAsync({ type: 'blob' });
         triggerDownload(content, `JMR_Submission_Package_${trackingId}.zip`);
       } else {
-        // Fallback: download manifest JSON
         const blob = new Blob([JSON.stringify(manifest, null, 2)], { type: 'application/json' });
         triggerDownload(blob, `JMR_Manifest_${trackingId}.json`);
       }
     } catch (err) {
       console.warn('Zip creation note:', err);
-      // Fallback
       const blob = new Blob([JSON.stringify(manifest, null, 2)], { type: 'application/json' });
       triggerDownload(blob, `JMR_Manifest_${trackingId}.json`);
     }
 
-    // Show Confirmation Screen
-    showConfirmationScreen(trackingId, manifest);
+    showConfirmationScreen(trackingId, manifest, corrFullName);
   }
 
-  function showConfirmationScreen(trackingId, manifest) {
-    // Hide all step cards
+  function saveSubmissionToEditorDatabase(manifest) {
+    try {
+      const key = 'jmr_editor_submissions';
+      const existingJson = localStorage.getItem(key);
+      const list = existingJson ? JSON.parse(existingJson) : [];
+      list.unshift(manifest);
+      localStorage.setItem(key, JSON.stringify(list));
+    } catch (e) {
+      console.warn('LocalStorage save notice:', e);
+    }
+  }
+
+  function showConfirmationScreen(trackingId, manifest, corrFullName) {
     document.querySelectorAll('.submission-step-card').forEach(card => card.classList.remove('active'));
     document.querySelector('.submission-progress-bar').style.display = 'none';
 
@@ -809,20 +1132,20 @@
     if (trackingDisplay) trackingDisplay.textContent = trackingId;
 
     if (editorEmailLink) {
-      const corr = submissionState.authors[0];
+      const corr = submissionState.authors.find(a => a.isCorresponding) || submissionState.authors[0];
       const subject = encodeURIComponent(`[New Submission] ${trackingId}: ${submissionState.metadata.title.substring(0, 60)}...`);
       const body = encodeURIComponent(
         `Dear Editor-in-Chief,\n\n` +
         `A new manuscript has been submitted through the JMR Editorial Submission Portal:\n\n` +
         `Tracking ID: ${trackingId}\n` +
         `Title: ${submissionState.metadata.title}\n` +
-        `Corresponding Author: ${corr.name} (${corr.email})\n` +
+        `Corresponding Author: ${corrFullName} (${corr.email})\n` +
         `Article Type: ${submissionState.articleType}\n` +
         `Publishing Model: ${submissionState.publishingModel}\n` +
         `Attached Files (${submissionState.files.length}):\n` +
         submissionState.files.map(f => ` - [${f.itemType}] ${f.name} (${formatBytes(f.size)})`).join('\n') +
         `\n\nAbstract:\n${submissionState.metadata.abstract}\n\n` +
-        `The author has downloaded their official submission archive (JMR_Submission_Package_${trackingId}.zip) and is transmitting this confirmation to the editorial office.`
+        `The author has downloaded their submission archive (JMR_Submission_Package_${trackingId}.zip) and is transmitting this confirmation to the editorial office.`
       );
       editorEmailLink.href = `mailto:editor@metaresistome.org?subject=${subject}&body=${body}`;
     }
@@ -831,9 +1154,9 @@
     window.scrollTo({ top: 80, behavior: 'smooth' });
   }
 
-  /* ═══════════════════════════════════════════
+  /* ===========================================
      UTILITIES
-     ═══════════════════════════════════════════ */
+     =========================================== */
   function formatBytes(bytes) {
     if (!bytes || bytes === 0) return '0 Bytes';
     const k = 1024;
@@ -878,12 +1201,12 @@ TITLE:
 ${manifest.metadata.title}
 
 CORRESPONDING AUTHOR:
-Name: ${manifest.authors[0].name}
-Email: ${manifest.authors[0].email}
-Affiliation: ${manifest.authors[0].institution}
+Name: ${manifest.correspondingAuthor.name}
+Email: ${manifest.correspondingAuthor.email}
+Affiliation: ${manifest.correspondingAuthor.institution}
 
-CO-AUTHORS (${manifest.authors.length - 1}):
-${manifest.authors.slice(1).map(a => `- ${a.name} (${a.institution})`).join('\n') || 'None'}
+ALL AUTHORS:
+${manifest.authors.map(a => `- ${[a.prefix, a.firstName, a.middleName, a.familyName].filter(Boolean).join(' ')} (${a.institution}) [${a.isCorresponding ? 'Corresponding' : 'Co-Author'}]`).join('\n')}
 
 ABSTRACT:
 ${manifest.metadata.abstract}

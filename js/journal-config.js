@@ -5,7 +5,7 @@
  * 
  * RULES:
  * - A metric/badge/button renders ONLY if its value is non-null AND non-empty.
- * - When null, the slot is NOT rendered at all — no empty box, no "N/A", no placeholder text.
+ * - When null, the slot is NOT rendered at all  -  no empty box, no "N/A", no placeholder text.
  * - The surrounding layout does NOT shift or break when a field becomes visible.
  * 
  * To enable metrics later (e.g. Impact Factor or ISSN):
@@ -34,7 +34,7 @@ const JOURNAL_SETTINGS = {
   impactFactor: null,       // e.g. 4.8 when calculated (hidden until set)
   citeScore: null,          // e.g. 5.1 when calculated (hidden until set)
   acceptanceRate: null,     // e.g. "24%" when established (hidden until set)
-  publishingModel: "Hybrid Open Access (CC BY 4.0 or Subscription)",
+  publishingModel: "Hybrid (CC BY 4.0 or Subscription)",
   publicationFrequency: "Continuous Publication (Annual Volumes, Quarterly Issues)",
   apc: "Hybrid Model: Zero fee for Subscription; Optional Open Access available",
   
