@@ -77,19 +77,25 @@ The system enforces strict item classification:
 ### Stage 3: Manuscript Details, Declarations, and Authors
 
 1. Full Manuscript Title: Pre-filled from manuscript file, editable.
-2. Abstract: Pre-filled from manuscript file, editable. Includes real-time word counter formatted as "X / 250 words". If the word count exceeds 250 words, the counter text turns red with a warning.
-3. Keywords: 3 to 6 terms.
-4. Scientific Section: Dropdown of primary journal tracks.
-5. Declarations:
+2. Abstract: Pre-filled from manuscript file, editable. Includes real-time word counter formatted as "X / 250 words" (turns red if > 250 words).
+3. Keyword Density Panel (wordcounter.net style): Real-time analysis of the abstract text displaying top keywords with frequency and percentage (e.g. `8 (3%) resistance`, `7 (2%) wastewater`), filtering out standard stop words, with toggle support for single words (`x1`) and 2-word phrases (`x2`). Clicking any density chip automatically appends the term to the Keywords field.
+4. Keywords: 3 to 6 terms separated by semicolons (;). Automatically extracted from manuscript files (`Keywords:` header) when available.
+5. Scientific Section: Dropdown of primary journal tracks.
+6. Declarations:
    * Prior publication / duplicate submission (Yes / No).
    * Conflict of interest (Yes / No).
    * Research funding sources.
    * Ethical approval and biosafety compliance.
    * Mandatory data and code availability statement.
-6. Authors:
-   * Separated name fields: First Name (Given Name), Middle Name, Family Name (Surname).
-   * Institutional Search Autocomplete: Searchable database of world universities with instant country autofill, plus "+ Add Custom Institution" option.
-   * Corresponding Author Flexibility: Any author (Author 1, Author 2, Author 3, etc.) can be designated as the corresponding author via an individual radio button.
+7. Authors:
+   * Separated name fields: First Name (Given Name), Middle Name, Family Name (Surname). Author 1 email defaults to blank so authors enter their own address.
+   * Stationary Numbering & Move Up / Move Down Reordering: Author cards can be shifted up or down to adjust author sequence, while labels `Author 1`, `Author 2`, `Author 3` stay fixed in sequence.
+   * Searchable Autocomplete: Fast interactive search for both Institutions and Countries.
+   * Corresponding Author Flexibility: Any author in the sequence can be designated as the corresponding author via an individual radio button.
+8. Draft Auto-Save & Recovery:
+   * Form state, authors, declarations, and file attachments are auto-saved to local browser storage (`localStorage`).
+   * If a user accidentally closes or refreshes the page, their draft is restored with a notification banner.
+   * A "Start Over Clean" button allows authors to discard the draft and begin a fresh submission at any time.
 
 ---
 
@@ -117,3 +123,4 @@ How the Editor-in-Chief receives and accesses submissions:
    * Dashboard: Displays all active submissions with Tracking ID, Date, Title, Corresponding Author, and Article Type.
    * One-Click Download: Clicking "Download ZIP" immediately downloads the full submission archive containing all raw files and manifest.
    * Details View: Allows inspecting abstract, authors, and ethical declarations directly.
+
