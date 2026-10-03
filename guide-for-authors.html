@@ -43,7 +43,7 @@
         <p class="masthead-subtitle">An International Journal of Antimicrobial Resistance, Pathogen Genomics & Microbial Surveillance</p>
       </div>
       <div class="masthead-badges">
-        <div class="badge-open-access">Open Access</div>
+        <div class="badge-open-access">Hybrid Open Access</div>
         <div id="masthead-issn-slot" style="display: none; font-size: 0.775rem;"></div>
         <div id="masthead-metrics-slot" class="masthead-metrics-slot"></div>
       </div>
@@ -58,41 +58,43 @@
         
         <!-- Articles & Issues Dropdown -->
         <li class="nav-dropdown">
-          <button class="nav-dropdown-toggle" aria-expanded="false">
-            Articles & Issues
+          <a href="articles.html" class="nav-dropdown-toggle">
+            Articles &amp; Issues
             <svg class="dropdown-caret" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
-          </button>
+          </a>
           <ul class="nav-dropdown-menu">
             <li><a href="articles.html">Latest Articles</a></li>
-            <li><a href="issues.html">All Volumes & Issues</a></li>
+            <li><a href="issues.html">All Volumes &amp; Issues</a></li>
             <li><a href="articles.html">Call for Inaugural Papers (Vol 1)</a></li>
           </ul>
         </li>
 
         <!-- About Dropdown -->
         <li class="nav-dropdown">
-          <button class="nav-dropdown-toggle" aria-expanded="false">
+          <a href="about.html" class="nav-dropdown-toggle">
             About
             <svg class="dropdown-caret" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
-          </button>
+          </a>
           <ul class="nav-dropdown-menu">
-            <li><a href="aims-and-scope.html">Aims and Scope</a></li>
-            <li><a href="editorial-board.html">Editorial Board & Governance</a></li>
             <li><a href="about.html">About the Journal</a></li>
-            <li><a href="about.html">Publishing Ethics & COPE Standards</a></li>
+            <li><a href="aims-and-scope.html">Aims and Scope</a></li>
+            <li><a href="editorial-board.html">Editorial Board &amp; Governance</a></li>
+            <li><a href="about.html#ethics">Publishing Ethics &amp; COPE Standards</a></li>
+            <li><a href="about.html#hybrid-model">Hybrid Open Access Policy</a></li>
           </ul>
         </li>
 
         <!-- Publish Dropdown -->
         <li class="nav-dropdown">
-          <button class="nav-dropdown-toggle" style="color: var(--color-primary); border-bottom-color: var(--color-primary);" aria-expanded="false">
+          <a href="guide-for-authors.html" class="nav-dropdown-toggle" style="color: var(--color-primary); border-bottom-color: var(--color-primary);">
             Publish
             <svg class="dropdown-caret" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
-          </button>
+          </a>
           <ul class="nav-dropdown-menu">
+            <li><a href="submit.html" target="_blank" rel="noopener noreferrer" style="color: var(--color-primary); font-weight: 700;">Submit Your Article ↗</a></li>
             <li><a href="guide-for-authors.html" style="font-weight: 600;">Guide for Authors</a></li>
             <li><a href="guide-for-authors.html#submission-checklist">Submission Checklist</a></li>
-            <li><a href="about.html">Open Access (CC BY 4.0)</a></li>
+            <li><a href="about.html#hybrid-model">Hybrid Publishing Policy</a></li>
             <li><a href="guide-for-authors.html#data-statement">Research Data Policy</a></li>
           </ul>
         </li>
@@ -101,7 +103,9 @@
       </ul>
 
       <div class="nav-right-actions">
-        <a href="contact.html" class="nav-action-link">Editorial Office &rarr;</a>
+        <a href="submit.html" target="_blank" rel="noopener noreferrer" class="btn-submit-nav" style="background-color: #E06535; font-weight: 700;">
+          Submit Your Article ↗
+        </a>
       </div>
     </div>
   </nav>
@@ -195,13 +199,12 @@
 
       <!-- Section 4 -->
       <section id="open-access">
-        <h3>4. Open Access, Copyright & Licensing</h3>
-        <p>All articles in the <em>Journal of MetaResistome</em> are published under the <strong>Creative Commons Attribution 4.0 International (CC BY 4.0)</strong> license. Under this license:</p>
+        <h3>4. Hybrid Publishing Model, Open Access &amp; Copyright</h3>
+        <p>The <em>Journal of MetaResistome</em> operates as a <strong>Hybrid Open Access Journal</strong>. Upon manuscript acceptance, corresponding authors can select their preferred publishing pathway:</p>
         <ul>
-          <li><strong>Authors retain unrestricted copyright</strong> of their published work.</li>
-          <li>Readers around the globe can freely read, download, copy, distribute, search, link, and cite the work without payment or barrier.</li>
-          <li>Commercial and non-commercial reuse is permitted, provided proper attribution is given to the original authors and JMR as the venue of initial publication.</li>
-          <li><strong>Inaugural Volume Waiver:</strong> No Article Processing Charges (APCs) are levied for accepted manuscripts submitted during the inaugural volume period.</li>
+          <li><strong>Option A &mdash; Gold Open Access (CC BY 4.0):</strong> Published under the Creative Commons Attribution 4.0 International license. Immediate, permanent worldwide open access for researchers and public health authorities. <strong>Authors retain unrestricted copyright</strong>. <em>(Inaugural Volume Waiver: zero APC fees apply for manuscripts submitted to Volume 1).</em></li>
+          <li><strong>Option B &mdash; Subscription Publishing (Zero APC):</strong> Traditional publishing model with no author-facing publication charges, supported by institutional subscriptions and standard archiving.</li>
+          <li><strong>Data Sharing Mandate:</strong> Regardless of publishing route, all empirical genomic data and code must comply with JMR's FAIR data accessibility requirements.</li>
         </ul>
       </section>
 
@@ -353,12 +356,19 @@
           </ul>
         </div>
 
-        <div style="background-color: var(--color-bg-subtle); border: 1px solid var(--color-border-medium); padding: 1.5rem; text-align: center; margin-top: 2rem;">
-          <h4 style="font-family: var(--font-serif); font-size: 1.25rem; color: var(--color-primary); margin-bottom: 0.5rem;">Ready to Submit Your Manuscript?</h4>
-          <p style="font-size: 0.9rem; color: var(--color-text-muted); max-width: 600px; margin: 0 auto 1.25rem;">
-            For Volume 1 (2026) submissions or editorial inquiries, manuscripts may be transmitted directly to the Founding Editor-in-Chief.
+        <div style="background-color: var(--color-bg-subtle); border: 1px solid var(--color-border-medium); padding: 1.75rem; text-align: center; margin-top: 2rem; border-radius: 4px;">
+          <h4 style="font-family: var(--font-serif); font-size: 1.35rem; color: var(--color-primary); margin-bottom: 0.5rem;">Ready to Submit Your Manuscript?</h4>
+          <p style="font-size: 0.9rem; color: var(--color-text-muted); max-width: 620px; margin: 0 auto 1.25rem;">
+            Submit your manuscript components, declarations, and data statements through our guided online editorial submission system.
           </p>
-          <a href="mailto:editor@metaresistome.org" class="btn-academic btn-academic-primary">Email Manuscript to Editorial Office</a>
+          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="submit.html" target="_blank" rel="noopener noreferrer" class="btn-academic btn-academic-primary" style="background-color: #E06535; border-color: #E06535; font-weight: 700; padding: 0.75rem 1.75rem; text-decoration: none;">
+              Launch Editorial Submission Portal ↗
+            </a>
+            <a href="mailto:editor@metaresistome.org" class="btn-academic btn-academic-secondary" style="padding: 0.75rem 1.25rem; text-decoration: none;">
+              Email Inquiries to Editor
+            </a>
+          </div>
         </div>
       </section>
 

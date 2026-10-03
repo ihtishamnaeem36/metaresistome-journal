@@ -34,15 +34,16 @@ const JOURNAL_SETTINGS = {
   impactFactor: null,       // e.g. 4.8 when calculated (hidden until set)
   citeScore: null,          // e.g. 5.1 when calculated (hidden until set)
   acceptanceRate: null,     // e.g. "24%" when established (hidden until set)
+  publishingModel: "Hybrid Open Access (CC BY 4.0 or Subscription)",
   publicationFrequency: "Continuous Publication (Annual Volumes, Quarterly Issues)",
-  apc: null,                // Article Processing Charge (null = hidden / Diamond Open Access)
+  apc: "Hybrid Model: Zero fee for Subscription; Optional Open Access available",
   
   // Indexing badges (hidden until officially indexed)
   indexingBadges: [],       // e.g. ["Scopus", "DOAJ", "PubMed Central", "Crossref"]
   
   // System Feature Flags
-  submissionLive: false,    // Set to true when the manuscript submission portal is opened
-  submissionPortalUrl: "#", // URL to submission system when live
+  submissionLive: true,     // Manuscript submission portal is active
+  submissionPortalUrl: "submit.html", // Dedicated Elsevier-style submission system
   
   // Article counts & flags
   articlesInPressCount: 0,  // Hidden if 0

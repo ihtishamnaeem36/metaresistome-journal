@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFeatureFlags();
   initModalSystem();
   initSearch();
+  initNavDropdowns();
 });
 
 /**
@@ -147,3 +148,29 @@ function initSearch() {
     });
   }
 }
+
+/**
+ * 4. ACCESSIBLE DROPDOWN NAVIGATION (Mobile & Click Support)
+ */
+function initNavDropdowns() {
+  const dropdowns = document.querySelectorAll('.nav-dropdown');
+
+  dropdowns.forEach(dropdown => {
+    const caret = dropdown.querySelector('.dropdown-caret');
+    if (caret) {
+      caret.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropdown.classList.toggle('is-open');
+      });
+    }
+  });
+
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-dropdown')) {
+      document.querySelectorAll('.nav-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
+    }
+  });
+}
+

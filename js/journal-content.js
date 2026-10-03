@@ -114,13 +114,13 @@ const JOURNAL_CONTENT = {
   about: {
     title: "About the Journal",
     slug: "about",
-    shortSummary: "Journal of MetaResistome is an independent scholarly publication founded to advance transparent, diamond open-access research in antimicrobial resistance biology and surveillance genomics.",
+    shortSummary: "Journal of MetaResistome is an independent scholarly publication founded to advance transparent, hybrid open-access research in antimicrobial resistance biology and surveillance genomics.",
     fullText: `
       <h3>Publisher Independence & Non-Profit Ethos</h3>
       <p>The <strong>Journal of MetaResistome</strong> was established as an independent academic platform. It is not affiliated with commercial legacy publishers, ensuring that decisions are governed exclusively by active scientists and focused on research integrity rather than commercial metrics.</p>
 
-      <h3>Open Access Policy</h3>
-      <p>JMR publishes under the <strong>Creative Commons Attribution 4.0 International (CC BY 4.0)</strong> license. Authors retain copyright of their work without restriction. Anyone may freely read, download, copy, distribute, print, search, or link to the full texts of articles without prior permission from the publisher or the author.</p>
+      <h3>Hybrid Publishing Model</h3>
+      <p>JMR operates as a <strong>Hybrid Open Access Journal</strong>, providing authors full choice between Gold Open Access (published under Creative Commons CC BY 4.0 with author copyright retention) and Traditional Subscription Publishing (with zero author-facing publication charges).</p>
 
       <h3>Editorial Rigor & COPE Compliance</h3>
       <p>The journal complies with the core practices and guidelines developed by the Committee on Publication Ethics (COPE). Plagiarism screening is performed on all submissions, and all instances of scientific misconduct, duplicate publication, or author disputes are handled following COPE flowcharts.</p>
