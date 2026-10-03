@@ -1,0 +1,193 @@
+=== Page 1 ===
+New Identify evidence gaps in your manuscript
+Double-check your claims with LeapSpace's Writing Coach.
+Try Writing Coach
+Guide for authors
+About the journal
+Aims and scope
+Article types
+Peer review
+Open access
+Ethics and policies
+Ethics in publishing
+Submission declaration
+Authorship
+Changes to authorship
+Declaration of competing interests
+Funding sources
+Declaration of generative AI use
+Preprints
+Use of inclusive language
+Reporting sex- and gender-based analyses
+Image manipulation
+Jurisdictional claims
+Delayed publication
+Withdrawal, correction, or retraction
+Writing and formatting
+File format
+Title page
+Abstract
+Keywords
+Highlights
+Graphical abstract
+Tables
+Figures, images and other artwork
+Generative AI and ﬁgures, images and other artwork
+Supplementary material
+Video
+Research data
+Data statement
+Data linking
+Mendeley data
+Journal of Hazardous Materials
+Supports open access
+=== Page 2 ===
+Co-submission of related data, methods or protocols
+Article structure
+References
+Submitting your manuscript
+Submission checklist
+Submit online
+After receiving a ﬁnal decision
+Article Transfer Service
+Publishing agreement
+License options
+Open access
+Permission for copyrighted works
+Proof correction
+Responsible sharing
+Journal speciﬁc information
+Resources for authors
+Elsevier Researcher Academy
+Language and editing services
+Getting help and support
+Author support
+About the journal
+Aims and scope
+The Journal of Hazardous Materials is an international forum that advances world class research by publishing articles in the areas of
+Environmental Science and Engineering. We publish full-length research papers, review articles, and perspectives that improve our
+understanding of the hazards and risks that certain materials pose to public health and the environment. Authors are supposed to address
+two questions in their manuscripts: 1) is the studied subject an environmental contaminant? and 2) is the study conducted under an
+environmentally relevant condition?
+"Environmental contaminants" exclude the compounds that do not exert hazardous eﬀects on the environment or humans via contamination.
+Of note, diﬀerence between wastes and hazardous materials needs to be spotlighted to further clarify the JHM scope. The journal is highly
+interested in speciﬁc compounds or microbial agents with environmentally hazardous eﬀects.
+"Environmentally relevant conditions" typically require an experiment or modeling study to be conducted with the consideration of
+environmental factors, such as temperature, pH, environmental matrix constituents, and chemical doses for waste removal, within their
+respective realistic occurrence ranges. Particularly, we have noticed that studies on nanomaterials or emerging contaminants (e.g.,
+sensing/detection, eﬀects, and removal) in many manuscripts were performed with unrealistically high concentrations, which can be several
+orders of magnitude higher than their real occurrence ranges in an environmental medium.
+Environmental implications from such studies would be very limited. Although higher concentrations may exhibit a full spectrum of
+hazardous eﬀects, a manuscript ought to embrace realistic level(s) of a hazardous material in the range of the studied concentrations.
+Examples of the topics that are outside the journal's scope can be found in this editorial: Reﬁning the scope of Journal of Hazardous Materials
+Article types
+Full-length research papers within the above stated Aims and Scope are welcome. Such contributions are not to be submitted in two parts (i.e.
+Part I and Part II) - these must be consolidated into one manuscript. Short communications are not considered.
+=== Page 3 ===
+Review Article - Critical evaluation of existing data, deﬁned topics or emerging ﬁelds of investigation, critical issues of public concern.For
+Review Articles please include the following in your Cover Letter: (1) a clear indication of the novelty and urgency of such a review paper at this
+time, in light of other review a brief on the same topic, (2) a brief description of the authors' academic background and research areas, and (3)
+a list of all authors' publications related to the review article topic.
+Perspectives allow experienced researchers the opportunity to provide their view, opinions, and outlook on selected subjects. Those analyses
+and discussions should be based on solid research proof and data from authors and/or literature. Pure speculations or opinions are excluded.
+Letter to the Editor - A written discussion of papers published in the journal. Authors of earlier papers, if the Letter concerns a prior
+publication, will also be given an opportunity to respond.
+Virtual Special Issue - If you would like to propose a virtual special issue, please contact the managing editor via
+email:hazmat@elsevier.com. A required template must be completed for all proposals for virtual special issues. The key factors for a
+successful proposal include the strong need for such a special issue, extensive publication/editorial records of guest editors, and a viable plan
+for attracting high-quality papers.
+Peer review
+This journal follows a single anonymized review process. Your submission will initially be assessed by our editors. If your submission is deemed
+suitable, it will typically be sent to be reviewed by a minimum of two reviewers for an independent expert assessment of the scientiﬁc quality.
+The decision as to whether your article is accepted or rejected for publication will be made by our editors.
+Read more about peer review.
+Our editors are not involved in making decisions about papers which:
+they have written themselves.
+have been written by family members or colleagues.
+relate to products or services in which they have an interest.
+Any such submissions will be subject to the journal's usual procedures and peer review will be handled independently of the editor involved
+and their research group. Read more about editor duties.
+Authors may submit a formal appeal request to the editorial decision, provided it meets all the requirements and follows the procedure
+outlined in Elsevier’s Appeal Policy. Only one appeal per submission will be considered and the appeal decision will be ﬁnal.
+Special issues and article collections
+The peer review process for special issues and article collections follows the same process as outlined above for regular submissions, except, a
+guest editor may send the submissions out to the reviewers and may recommend a decision to the journal editor. The journal editor oversees
+the peer review process of all special issues and article collections to ensure the high standards of publishing ethics and responsiveness are
+respected and is responsible for the ﬁnal decision regarding acceptance or rejection of articles.
+Open access
+We refer you to our open access information page to learn about open access options for this journal.
+Ethics and policies
+Ethics in publishing
+Authors must follow ethical guidelines stated in Elsevier's Publishing Ethics Policy.
+Submission declaration
+When authors submit an article to an Elsevier journal it is implied that:
+=== Page 4 ===
+The work described has not been published previously except in the form of a preprint, an abstract, a published lecture, academic thesis
+or registered report. See our policy on multiple, redundant or concurrent publication.
+The article is not under consideration for publication elsewhere.
+The article's publication is approved by all authors and tacitly or explicitly by the responsible authorities where the work was carried out.
+If accepted, the article will not be published elsewhere in the same form, in English or in any other language, including electronically,
+without the written consent of the copyright-holder.
+To verify compliance with our journal publishing policies, we may check your manuscript with our screening tools.
+Authorship
+All authors should have made substantial contributions to all of the following:
+1. The conception and design of the study, or acquisition of data, or analysis and interpretation of data
+2. Drafting the article or revising it critically for important intellectual content.
+3. Final approval of the version to be submitted.
+All authors are accountable for all aspects of the work, to ensure that questions related to the accuracy or integrity of any part of the work are
+appropriately investigated and resolved.
+Corresponding author
+Authors must appoint a single corresponding author to communicate with the journal during the editorial process. This individual submits the
+manuscript and all required documentation to the journal, and serves as the primary contact between the journal and the co-authors. It is
+important that all contact details of the corresponding author are kept up to date throughout the submission and publication process.
+Only the corresponding author’s aﬃliation will be used to determine eligibility for a publishing agreement, and possible discounts related to
+it. Aﬃliations of other co-authors are not relevant for eligibility.
+Group authorship
+Group authorship refers to the attribution of an article to a deﬁned and named group of authors whose members have contributed to the
+work. Examples include research consortia, clinical trial groups, collaborative networks, task forces or working groups, expert panels or
+consensus groups, and participatory research groups.
+Group authorship must be declared on the title page at submission. When available, the submitting author should include the group under
+“Collaborative Author Groups” in the submission system.
+A corresponding author who agrees to coordinate all communications on behalf of the group must be designated.
+The group name will be included in the author list in the published article (e.g., “on behalf of the [Consortium Name]”).
+All group members associated with the work should be listed in a dedicated section, preferably an appendix.
+All listed authors must follow the journal’s authorship and authorship change policies.
+The group must maintain a transparent internal process for determining authorship and resolving disputes. All authorship disputes must
+be resolved within the group.
+Changes to authorship
+The editors of this journal generally will not consider changes to authorship once a manuscript has been submitted. It is important that
+authors carefully consider the authorship list and order of authors and provide a deﬁnitive author list at submission.  
+=== Page 5 ===
+The policy of this journal around authorship changes:  
+All authors must be listed in the manuscript and their details entered into the submission system. Changes can only be made prior to
+acceptance, and only if approved by the journal editor. This includes additions, deletion, or rearrangement of author names.
+Requests to change authorship must be made by the corresponding author using the Authorship Change Request form. The corresponding
+author must provide the reason for the request to the journal editor with written conﬁrmation from all authors, including any authors
+being added or removed, that they agree with the changes. Requests which do not comply with the instructions outlined in the form will
+not be considered.
+This journal does not allow authorship changes after acceptance. This includes additions, deletions, or the rearrangement of author
+names, including changes to the corresponding author.
+The review process may be paused while a change in authorship request is being considered.
+Change requests made by the authors without the Authorship Change Request form or editor approval may result in the rejection of the
+manuscript, or retraction if the article has already been published.
+Declaration of competing interests
+All authors must disclose any ﬁnancial and personal relationships with other people or organizations that could inappropriately inﬂuence or
+bias their work. Examples of potential competing interests include:
+Employment
+Consultancies
+Stock ownership
+Honoraria
+Paid expert testimony
+Patent applications or registrations
+Grants or any other funding
+Aﬃliation with the journal as an Editor or Advisory Board Member
+The declarations tool should always be completed.
+Authors with a journal aﬃliation to declare should enter the following text under “Other Activities” within the  declarations tool and should
+inform the journal and publisher prior to completing the submission process:
+Given their role as [AUTHOR JOURNAL ROLE TITLE], [AUTHOR NAME] had no involvement in the peer-review of this article and has no access to
+information regarding its peer-review. Full responsibility for the editorial process for this article was delegated to another journal editor.
+Editorial disclosure statements will be included as a footnote and/or in the declaration of competing interest section of the article.
+Authors with no competing interests to declare should select the option "I have nothing to declare".
+The resulting Word document containing your declaration should be uploaded at the "attach/upload ﬁles" step in the submission process. It is
+important that the Word document is saved in the .doc/.docx ﬁle format. Author signatures are not required.
+Funding sources
